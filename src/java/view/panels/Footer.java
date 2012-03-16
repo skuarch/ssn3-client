@@ -101,20 +101,19 @@ public class Footer {
     
         JPanel panel = null;
         JPanel panelButtons = null;
-        
+
         try {
+
             panel = new JPanel();
             panel.setLayout(new BorderLayout());
-            panel.setBorder(new MotifBorders.BevelBorder(true, Color.LIGHT_GRAY, Color.black));
-            panelButtons = new JPanel();                    
-            panelButtons.setLayout(new BorderLayout());
+            panel.setBorder(new MotifBorders.BevelBorder(true, Color.LIGHT_GRAY, Color.black));            
+            panelButtons = new JPanel();            
             panelButtons.add(exportExcelButton);
-            panelButtons.add(pdfButton);
-            panelButtons.add(tableButton);
-            panelButtons.add(detailsButton);            
-            panel.add(panelButtons, BorderLayout.LINE_END);
+            panelButtons.add(detailsButton);
+            panel.add(panelButtons, BorderLayout.EAST);            
+
         } catch (Exception e) {
-            notifications.error("error creating footer", e);
+            notifications.error("imposible to create footer", e);
         }
     
         return panel;

@@ -44,10 +44,11 @@ public class TablePagination extends FactoryPanel {
     private ArrayList arrayList = null;
     private JTable table = null;
     private DefaultTableModel model = null;
+    private boolean finishPagination = false;
 
     //==========================================================================
     public TablePagination(SubPiece subPiece) {
-
+        
         notifications = new Notifications();
         this.subPiece = subPiece;
         loadingPanel = new LoadingPanel();
@@ -128,6 +129,11 @@ public class TablePagination extends FactoryPanel {
             hp = new HeaderPagination();
             panelPagination = hp.getHeaderBarChart();
 
+            if (finishPagination) {
+                limit2 = limit1 - 1 + 25;
+                finishPagination = false;
+            }
+
             if (totalResult <= 25) {
                 hp.enableAllComponents(false);
             }
@@ -142,11 +148,13 @@ public class TablePagination extends FactoryPanel {
 
             if (limit1 <= 1) {
                 limit1 = 1;
+                limit2 = 25;
                 hp.enableBackButton(false);
             }
 
             if (limit2 > totalResult) {
                 limit2 = totalResult;
+                finishPagination = true;
                 hp.enableNextButton(false);
             }
 
@@ -291,9 +299,7 @@ public class TablePagination extends FactoryPanel {
         String[] columnNames = null;
         Object[][] data = null;
 
-        try {
-
-            arrayList = (ArrayList) new ControllerDataTable().getData(subPiece);
+        try {            
 
             columnNames = (String[]) arrayList.get(0);
             data = (Object[][]) arrayList.get(1);
@@ -374,22 +380,9 @@ public class TablePagination extends FactoryPanel {
             execute.interrupt();
         }
 
-        notifications = null;
-        execute = null;
-        loadingPanel = null;
-        panelFooter = null;
-        panelPagination = null;
-        limit1 = 1;
-        limit2 = 25;
-        scrollPane = null;
-        totalResult = 0;
-        arrayList = null;
-        table = null;
-        model = null;
-
     }
-//==========================================================================
-
+    
+    //==========================================================================
     @Override
     public Class getclass() {
         return getClass();
@@ -401,6 +394,18 @@ public class TablePagination extends FactoryPanel {
 
         try {
             destroy();
+            notifications = null;
+            execute = null;
+            loadingPanel = null;
+            panelFooter = null;
+            panelPagination = null;
+            limit1 = 1;
+            limit2 = 25;
+            scrollPane = null;
+            totalResult = 0;
+            arrayList = null;
+            table = null;
+            model = null;
         } catch (Exception e) {
             notifications.error("error in finalize", e);
         } finally {

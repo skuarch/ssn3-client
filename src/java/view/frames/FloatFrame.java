@@ -119,17 +119,12 @@ public class FloatFrame extends JFrame {
     private void closeMe() {
         setVisible(false);
         FactoryPanel fp = (FactoryPanel) component;
-        fp.destroy();        
+        fp.destroy();
     } // end closeMe
 
     //==========================================================================
     public void destroy() {
-        floatFrame = null;
-        component = null;
-        jButtonClose = new JButton();
-        jButtonOnTop = new JButton();
-        jButtonSwap = new JButton();
-        jToolBar = new JToolBar();
+        
     }
 
     //==========================================================================
@@ -138,6 +133,12 @@ public class FloatFrame extends JFrame {
 
         try {
             destroy();
+            floatFrame = null;
+            component = null;
+            jButtonClose = new JButton();
+            jButtonOnTop = new JButton();
+            jButtonSwap = new JButton();
+            jToolBar = new JToolBar();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

@@ -47,6 +47,7 @@ public class BarChartPanel extends FactoryPanel {
     private int limit2 = 25;
     private HeaderPagination hp = null;
     private JPanel panelBarChart = null;
+    private boolean finishPagination = false;
 
     //==========================================================================
     public BarChartPanel(SubPiece subPiece) {
@@ -83,7 +84,7 @@ public class BarChartPanel extends FactoryPanel {
 
                     requestTotalResult();
                     requestDataset();
-                    setNumBars();
+                    //setNumBars(); xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                     createChart();
                     createPanelFooter();
                     createPanelPagination();
@@ -267,6 +268,11 @@ public class BarChartPanel extends FactoryPanel {
             hp = new HeaderPagination();
             panelPagination = hp.getHeaderBarChart();
 
+            if (finishPagination) {
+                limit2 = limit1 - 1 + 25;
+                finishPagination = false;
+            }
+
             if (totalResult <= 25) {
                 hp.enableAllComponents(false);
             }
@@ -281,13 +287,16 @@ public class BarChartPanel extends FactoryPanel {
 
             if (limit1 <= 1) {
                 limit1 = 1;
+                limit2 = 25;
                 hp.enableBackButton(false);
             }
 
             if (limit2 > totalResult) {
                 limit2 = totalResult;
+                finishPagination = true;
                 hp.enableNextButton(false);
             }
+
 
             hp.setLabelText(limit1 + " to " + limit2 + " of " + totalResult);
 
@@ -492,20 +501,7 @@ public class BarChartPanel extends FactoryPanel {
             EventViewer.getInstance().appendInfoTextConsole("stoping execute thread");
             execute.interrupt();
         }
-        notifications = null;
-        barChart = null;
-        panelFooter = null;
-        loadingPanel = null;
-        list = null;
-        panelPagination = null;
-        totalResult = 0;
-        numBars = 0;
-        dataset = null;
-        execute = null;
-        limit1 = 1;
-        limit2 = 25;
-        hp = null;
-        panelBarChart = null;
+
     }
 //==========================================================================
 
@@ -519,6 +515,20 @@ public class BarChartPanel extends FactoryPanel {
     protected void finalize() throws Throwable {
         try {
             destroy();
+            notifications = null;
+            barChart = null;
+            panelFooter = null;
+            loadingPanel = null;
+            list = null;
+            panelPagination = null;
+            totalResult = 0;
+            numBars = 0;
+            dataset = null;
+            execute = null;
+            limit1 = 1;
+            limit2 = 25;
+            hp = null;
+            panelBarChart = null;
         } catch (Exception e) {
             notifications.error("error", e);
         } finally {

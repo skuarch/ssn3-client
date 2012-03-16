@@ -325,6 +325,7 @@ public class SubNavigator extends FactoryTab {
         } finally {
             components = null;
             tmp = null;
+            removeAll();
         }
 
     } // end closeAllTabs

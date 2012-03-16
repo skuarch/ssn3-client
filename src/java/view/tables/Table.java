@@ -106,7 +106,7 @@ public class Table extends FactoryPanel {
                     scrollPane.setViewportView(jtable);
                     add(scrollPane, BorderLayout.CENTER);
                     sortTable();
-                    add(new Footer(subPiece).getFooterTable(), BorderLayout.SOUTH);
+                    add(new Footer(subPiece).getFooterTable(), BorderLayout.PAGE_END);
                     updateUI();
 
                 } catch (Exception e) {
@@ -180,11 +180,7 @@ public class Table extends FactoryPanel {
     //==========================================================================
     @Override
     public void destroy() {
-        loadingPanel = null;
-        notifications = null;
-        jtable = null;
-        model = null;
-        scrollPane = null;
+        
     }
 //==========================================================================
 
@@ -199,6 +195,11 @@ public class Table extends FactoryPanel {
 
         try {
             destroy();
+            loadingPanel = null;
+        notifications = null;
+        jtable = null;
+        model = null;
+        scrollPane = null;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

@@ -62,7 +62,7 @@ public class LineChartPanel extends FactoryPanel {
 
         setname();
         //setDrop
-        list.setDropTarget(new DropTarget(list, this));
+        setDropTarget(new DropTarget(list, this));
 
         Thread t = new Thread(new Runnable() {
 
