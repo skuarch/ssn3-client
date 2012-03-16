@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.8.2
+Created-By: 1.6.0_26-b03 (Sun Microsystems Inc.)
+X-COMMENT: Main-Class will be added automatically by build
+Class-Path: antlr-2.7.6.jar lib/antlr-2.7.6.jar commons-collections-3.
+ 1.jar lib/commons-collections-3.1.jar hibernate-jpa-2.0-api-1.0.1.Fin
+ al.jar lib/hibernate-jpa-2.0-api-1.0.1.Final.jar itext-1.3.jar lib/it
+ ext-1.3.jar javassist-3.12.0.GA.jar lib/javassist-3.12.0.GA.jar mysql
+ -connector-java-5.1.12-bin.jar lib/mysql-connector-java-5.1.12-bin.ja
+ r slf4j-api-1.6.1.jar lib/slf4j-api-1.6.1.jar jcommon-1.0.16.jar lib/
+ jcommon-1.0.16.jar jfreechart-1.0.13.jar lib/jfreechart-1.0.13.jar do
+ m4j-1.6.1.jar lib/dom4j-1.6.1.jar swingx-core-1.6.2.jar lib/swingx-co
+ re-1.6.2.jar slf4j-simple-1.6.4.jar lib/slf4j-simple-1.6.4.jar jta-1.
+ 1.jar lib/jta-1.1.jar hibernate3.jar lib/hibernate3.jar poi-3.2-FINAL
+ -20081019.jar lib/poi-3.2-FINAL-20081019.jar 
+Main-Class: model.ssn.Main
+
