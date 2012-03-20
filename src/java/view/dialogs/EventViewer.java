@@ -5,7 +5,9 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import model.ssn.Main;
 import model.util.DateUtilities;
+import view.frames.MainFrame;
 import view.notifications.Notifications;
 import view.util.SwingUtilities;
 
@@ -39,12 +41,13 @@ public class EventViewer extends JDialog {
         shutdownButton = SwingUtilities.getShutdownButton();
 
         initComponents();
+        setLocationRelativeTo(getRootPane());
     } // end EventViewer
 //==========================================================================
 
     private synchronized static void createInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new EventViewer(null, false);
+            INSTANCE = new EventViewer(MainFrame.getInstance(), false);
         }
     }
 
@@ -77,7 +80,6 @@ public class EventViewer extends JDialog {
             textArea.setEditable(false);
             add(scrollTextArea, BorderLayout.CENTER);
 
-            setLocationRelativeTo(getRootPane());
             pack();
             addListeners();
 

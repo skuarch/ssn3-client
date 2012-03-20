@@ -65,8 +65,7 @@ public class SplashScreen extends JFrame {
 
         try {
             
-            new Authentication().validateUser("", ""); 
-            MainFrame.getInstance();
+            new Authentication().validateUser("", "");             
             new Login().setVisible(true);
 
         } catch (Exception e) {

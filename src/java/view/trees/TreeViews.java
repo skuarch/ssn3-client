@@ -44,7 +44,7 @@ public class TreeViews extends FactoryTree {
     }
 
     //==========================================================================
-    public static TreeViews getInstance() {
+    public synchronized static TreeViews getInstance() {
         if (INSTANCE == null) {
             createInstance();
         }

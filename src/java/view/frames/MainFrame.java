@@ -4,6 +4,8 @@ import controllers.ControllerConfiguration;
 import java.awt.Toolkit;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
+import view.dialogs.Configuration;
+import view.dialogs.EventViewer;
 import view.helpers.ControlNavigators;
 import view.notifications.Notifications;
 import view.splits.Navigator;
@@ -46,7 +48,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     //==========================================================================
-    private void onLoad() {
+    private synchronized void onLoad() {
 
         setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -89,6 +91,27 @@ public class MainFrame extends javax.swing.JFrame {
 
     } // end control
 
+    //==========================================================================
+    private void callEventViewer() {
+
+        EventViewer eventViewer = null;
+
+        try {
+
+            eventViewer = EventViewer.getInstance();
+
+            if (eventViewer.isVisible()) {
+                eventViewer.setVisible(false);
+            } else {
+                eventViewer.setVisible(true);
+            }
+
+        } catch (Exception e) {
+        }
+
+    }
+
+    //==========================================================================
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -105,10 +128,13 @@ public class MainFrame extends javax.swing.JFrame {
         jTabbedPaneCollectors = new javax.swing.JTabbedPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemExit = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItemEventViewer = new javax.swing.JMenuItem();
+        jMenuItemConfiguration = new javax.swing.JMenuItem();
+        jMenuSearch = new javax.swing.JMenu();
+        jMenuItemSubnet = new javax.swing.JMenuItem();
+        jMenuItemIP = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,18 +160,47 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        jMenuItem1.setText("exit");
-        jMenu1.add(jMenuItem1);
+        jMenuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/shutdown-mini.png"))); // NOI18N
+        jMenuItemExit.setText("exit");
+        jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemExit);
 
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Tools");
 
-        jMenuItem2.setText("event viewer");
-        jMenu3.add(jMenuItem2);
+        jMenuItemEventViewer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemEventViewer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/eventViewer.png"))); // NOI18N
+        jMenuItemEventViewer.setText("event viewer");
+        jMenuItemEventViewer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEventViewerActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemEventViewer);
 
-        jMenuItem3.setText("configuration");
-        jMenu3.add(jMenuItem3);
+        jMenuItemConfiguration.setText("configuration");
+        jMenuItemConfiguration.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConfigurationActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemConfiguration);
+
+        jMenuSearch.setText("search");
+
+        jMenuItemSubnet.setText("subnet");
+        jMenuSearch.add(jMenuItemSubnet);
+
+        jMenuItemIP.setText("ip");
+        jMenuSearch.add(jMenuItemIP);
+
+        jMenu3.add(jMenuSearch);
 
         jMenuBar1.add(jMenu3);
 
@@ -164,13 +219,44 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    //==========================================================================
+    private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItemExitActionPerformed
+
+    //==========================================================================
+    private void jMenuItemEventViewerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEventViewerActionPerformed
+        callEventViewer();
+    }//GEN-LAST:event_jMenuItemEventViewerActionPerformed
+
+    //==========================================================================
+    private void jMenuItemConfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConfigurationActionPerformed
+        Configuration configuration = null;
+
+        try {
+
+            configuration = new Configuration(this, true);
+
+            if (configuration.isVisible()) {
+                configuration.setVisible(false);
+            } else {
+                configuration.setVisible(true);
+            }
+
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jMenuItemConfigurationActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItemConfiguration;
+    private javax.swing.JMenuItem jMenuItemEventViewer;
+    private javax.swing.JMenuItem jMenuItemExit;
+    private javax.swing.JMenuItem jMenuItemIP;
+    private javax.swing.JMenuItem jMenuItemSubnet;
+    private javax.swing.JMenu jMenuSearch;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPaneMain;

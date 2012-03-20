@@ -30,6 +30,8 @@ public class Configuration implements Serializable {
     private int jmsTimeWaitMessage;
     @Column(name = "jms_time_wait_connectivity")
     private int jmsTimeWaitConnectivity;
+    @Column(name="seconds_live")
+    private String secondsLive = "20";
 
     //==========================================================================
     public Configuration() {
@@ -89,5 +91,16 @@ public class Configuration implements Serializable {
     public void setProjectName(String projectName) {
         this.projectName = projectName;
     }
+
+    //==========================================================================
+    public String getSecondsLive() {
+        return secondsLive;
+    }
+
+    //==========================================================================
+    public void setSecondsLive(String secondsLive) {
+        this.secondsLive = secondsLive;
+    }    
+    
 } // end class
 
