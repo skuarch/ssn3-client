@@ -37,12 +37,12 @@ public class Configuration extends javax.swing.JDialog {
             jTextFieldURLHelp.setText(configuration.getHelpPath());
             jTextFieldURLSSN.setText(configuration.getJWSPath());
             jTextFieldLiveUpdate.setText(configuration.getSecondsLive());
-
+            
             // the user has a privileges
             if (User.getInstance().getLevel() == 2) {
                 jButtonSave.setEnabled(false);
                 jButtonSave.setVisible(false);
-                jLabelMessage.setText("you haven't privileges for change this configuration");
+                jLabelMessage.setText("you don't have privileges for change these settings");
             }
 
         } catch (Exception e) {
@@ -194,7 +194,6 @@ public class Configuration extends javax.swing.JDialog {
 
         model.beans.Configuration c = null;
 
-
         try {
 
             c = new model.beans.Configuration();
@@ -209,6 +208,7 @@ public class Configuration extends javax.swing.JDialog {
             new controllers.ControllerConfiguration().saveConfiguration(c);
 
             jLabelMessage.setText("Done !!");
+            
         } catch (Exception e) {
             notifications.error("error saving the new configuration", e);
         }

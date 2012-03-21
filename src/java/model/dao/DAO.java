@@ -52,7 +52,7 @@ public class DAO {
         long id = 0;
 
         try {
-            
+
             id = (Long) session.save(object);
             session.beginTransaction().commit();
 
@@ -139,8 +139,8 @@ public class DAO {
         try {
 
             criteria = session.createCriteria(clazz);
-            objects = criteria.add(Restrictions.like(stringToFind, field + "%")).list();
-            session.beginTransaction().commit();
+            criteria.add(Restrictions.like("%" + field + "%", stringToFind));
+            objects = criteria.list();
 
         } catch (Exception e) {
             handlerError(e);

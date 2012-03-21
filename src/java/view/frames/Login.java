@@ -9,6 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import model.beans.User;
+import model.beans.Users;
+import model.dao.DAO;
 import org.jdesktop.swingx.JXLoginPane;
 import view.dialogs.EventViewer;
 import view.notifications.Notifications;
@@ -70,7 +73,7 @@ public class Login extends JFrame {
 
                         } catch (Exception e) {
                             notifications.error("error loging user", e);
-                        }finally{
+                        } finally {
                             button.setEnabled(true);
                         }
 
@@ -146,9 +149,33 @@ public class Login extends JFrame {
             notifications.error("error while autenticate the user", e);
         }
 
+        createUser(user);
         return flag;
 
     } // end validateLogin
+
+    //==========================================================================
+    private void createUser(String userName) {
+
+        if (userName == null || userName.length() < 1) {
+            throw new NullPointerException("userName is null");
+        }
+
+        User user = null;
+        Users usrs = null;
+
+        try {
+
+            user = User.getInstance();
+            usrs = (Users) new DAO().hsql("from Users where user_name = '" + userName + "'").get(0);
+            user.setLevel(usrs.getLevel());
+            user.setName(usrs.getName());
+
+        } catch (Exception e) {
+            notifications.error("error creating user", e);
+        }
+
+    }
 
     //==========================================================================
     private void openMainFrame() {
