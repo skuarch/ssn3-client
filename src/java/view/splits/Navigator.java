@@ -81,9 +81,8 @@ public class Navigator extends FactoryTab {
         t.setName("addTabnavigator");
         t.start();
     } // end addTab
-    
-    //==========================================================================    
 
+    //==========================================================================    
     private synchronized void addTabComponent(final String string, final Component component) {
 
         if (component == null) {
@@ -165,9 +164,14 @@ public class Navigator extends FactoryTab {
             } else {
 
                 sub = new SubNavigator(subPiece);
-                sub.addTab(subPiece.getDrillDown(), newTab);
-                addTab(nameSubnavigator, sub);
 
+                if (subPiece.getDrillDown().equalsIgnoreCase("not applicable")) {
+                    sub.addTab(subPiece.getView(), newTab);
+                } else {
+                    sub.addTab(subPiece.getDrillDown(), newTab);
+                }
+
+                addTab(nameSubnavigator, sub);
             }
 
         } catch (Exception e) {
@@ -280,7 +284,6 @@ public class Navigator extends FactoryTab {
                 num = JTabPaneUtilities.getNumComponent(name, this);
                 component = getComponentAt(num);
             } else {
-                //EventViewer.getInstance().appendWarmTextConsole("the " + name + " not found");
                 return null;
             }
 

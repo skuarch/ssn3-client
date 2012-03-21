@@ -1,13 +1,9 @@
 package view.util;
 
+import controllers.ControllerCollectors;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
-import model.beans.SubPiece;
-import view.dialogs.Detail;
-import view.frames.MainFrame;
 import view.notifications.Notifications;
 
 /**
@@ -201,4 +197,35 @@ public class SwingUtilities {
         list.setBackground(Color.WHITE);
         return list;
     } // end getListHorinzontal
+    
+    //==========================================================================
+    public DefaultComboBoxModel getDefaultComboBoxModelCollectors() {
+
+        DefaultComboBoxModel defaultComboBoxModel = null;
+        String[] collectors = null;
+        String[] servers = null;
+
+        try {
+
+            servers = new ControllerCollectors().getActivesCollectorsArray();
+            collectors = new String[servers.length + 1];
+            collectors[0] = "select a collector";
+
+            if (servers.length > 0) {
+                for (int i = 1; i < collectors.length; i++) {
+                    System.out.println("servers " + servers[i - 1]);
+                    collectors[i] = servers[i - 1];
+                }
+            }
+
+            defaultComboBoxModel = new DefaultComboBoxModel(collectors);
+
+        } catch (Exception e) {
+            new Notifications().error("error creation combobox collectors", e);
+        }
+
+        return defaultComboBoxModel;
+
+    } // end getComboBoxServers
+
 } // end class

@@ -2,10 +2,12 @@ package view.frames;
 
 import controllers.ControllerConfiguration;
 import java.awt.Toolkit;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import view.dialogs.Configuration;
 import view.dialogs.EventViewer;
+import view.dialogs.SearchIPAddress;
 import view.helpers.ControlNavigators;
 import view.notifications.Notifications;
 import view.splits.Navigator;
@@ -16,7 +18,7 @@ import view.trees.TreeViews;
  *
  * @author skuarch
  */
-public class MainFrame extends javax.swing.JFrame {
+public class MainFrame extends JFrame {
 
     private static MainFrame INSTANCE = null;
 
@@ -198,6 +200,11 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuSearch.add(jMenuItemSubnet);
 
         jMenuItemIP.setText("ip");
+        jMenuItemIP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemIPActionPerformed(evt);
+            }
+        });
         jMenuSearch.add(jMenuItemIP);
 
         jMenu3.add(jMenuSearch);
@@ -247,6 +254,11 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jMenuItemConfigurationActionPerformed
+
+    //==========================================================================
+    private void jMenuItemIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemIPActionPerformed
+        new SearchIPAddress(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItemIPActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;

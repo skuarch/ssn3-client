@@ -62,6 +62,31 @@ public class ModelCollectors {
     } // end getActivesCollectors
 
     //==========================================================================
+    public String[] getActivesCollectorsArray() {
+
+        Collectors[] collectors = null;
+        String[] collectorsArray = null;
+
+        try {
+
+            collectors = getCollectors();
+            collectorsArray = new String[collectors.length];
+
+            for (int i = 0; i < collectors.length; i++) {
+                if (collectors[i].getIsActive() == 1) {
+                    collectorsArray[i] = collectors[i].getHost();
+                }
+            }
+
+        } catch (Exception e) {
+            notifications.error("error getting actives collectors", e);
+        }
+
+        return collectorsArray;
+
+    }
+
+    //==========================================================================
     private Collectors[] doCast(List list) {
 
         if (list == null) {
