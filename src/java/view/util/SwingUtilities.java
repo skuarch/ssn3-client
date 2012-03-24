@@ -197,7 +197,7 @@ public class SwingUtilities {
         list.setBackground(Color.WHITE);
         return list;
     } // end getListHorinzontal
-    
+
     //==========================================================================
     public DefaultComboBoxModel getDefaultComboBoxModelCollectors() {
 
@@ -228,4 +228,29 @@ public class SwingUtilities {
 
     } // end getComboBoxServers
 
+    //==========================================================================
+    public boolean validateNetMask(String netMask) {
+
+        boolean flag = false;
+        int prefix = 0;
+
+        try {
+
+            prefix = Integer.parseInt(netMask);
+
+            if (prefix > 32 || prefix < 0) {
+                flag = false;
+            } else {
+                flag = true;
+            }
+
+        } catch (NumberFormatException nfe) {
+            return false;
+        } catch (Exception e) {
+            new Notifications().error("error validating subnet", e);
+        }
+
+        return flag;
+
+    } // end validateSubnet
 } // end class

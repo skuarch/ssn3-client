@@ -48,14 +48,9 @@ public class LineChartPanel extends FactoryPanel {
         this.notifications = new Notifications();
         this.list = new JList();
         this.loadingPanel = new LoadingPanel();
-        footer = new Footer(subPiece);
-        initFooter();
+        footer = new Footer(subPiece);        
         onLoad();
     } // end LineChartPanel
-
-    //==========================================================================
-    private void initFooter() {
-    } // end initFooter
 
     //==========================================================================
     private void onLoad() {

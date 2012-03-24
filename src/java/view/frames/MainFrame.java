@@ -8,6 +8,7 @@ import javax.swing.WindowConstants;
 import view.dialogs.Configuration;
 import view.dialogs.EventViewer;
 import view.dialogs.SearchIPAddress;
+import view.dialogs.SearchSubnet;
 import view.helpers.ControlNavigators;
 import view.notifications.Notifications;
 import view.splits.Navigator;
@@ -19,7 +20,7 @@ import view.trees.TreeViews;
  * @author skuarch
  */
 public class MainFrame extends JFrame {
-
+    
     private static MainFrame INSTANCE = null;
 
     //==========================================================================
@@ -27,11 +28,11 @@ public class MainFrame extends JFrame {
      * Creates new form MainFrame
      */
     private MainFrame() {
-
+        
         initComponents();
         setLocationRelativeTo(getContentPane());
         onLoad();
-
+        
     } // end MainFrame
 
     //==========================================================================
@@ -51,22 +52,22 @@ public class MainFrame extends JFrame {
 
     //==========================================================================
     private synchronized void onLoad() {
-
+        
         setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/view/images/ssnIcon.png")));
-
+        
         try {
 
             //title
             setTitle("SSN " + new ControllerConfiguration().getInitialConfiguration().getProjectName().toUpperCase());
-
+            
             Thread t = new Thread(new Runnable() {
-
+                
                 public void run() {
-
+                    
                     SwingUtilities.invokeLater(new Runnable() {
-
+                        
                         public void run() {
                             jTabbedPaneView.add(TreeViews.getInstance());
                             jTabbedPaneCollectors.add(TreeCollectors.getInstance());
@@ -77,40 +78,40 @@ public class MainFrame extends JFrame {
             });
             t.setName("onLoad");
             t.start();
-
+            
         } catch (Exception e) {
             new Notifications().error("error loading interface", e);
         }
-
+        
     } // end onLoad
 
     //==========================================================================
     public void control() {
-
+        
         Thread t = new Thread(new ControlNavigators());
         t.start();
         t.setName("ControlNavigators");
-
+        
     } // end control
 
     //==========================================================================
     private void callEventViewer() {
-
+        
         EventViewer eventViewer = null;
-
+        
         try {
-
+            
             eventViewer = EventViewer.getInstance();
-
+            
             if (eventViewer.isVisible()) {
                 eventViewer.setVisible(false);
             } else {
                 eventViewer.setVisible(true);
             }
-
+            
         } catch (Exception e) {
         }
-
+        
     }
 
     //==========================================================================
@@ -197,6 +198,11 @@ public class MainFrame extends JFrame {
         jMenuSearch.setText("search");
 
         jMenuItemSubnet.setText("subnet");
+        jMenuItemSubnet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSubnetActionPerformed(evt);
+            }
+        });
         jMenuSearch.add(jMenuItemSubnet);
 
         jMenuItemIP.setText("ip");
@@ -240,17 +246,17 @@ public class MainFrame extends JFrame {
     //==========================================================================
     private void jMenuItemConfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConfigurationActionPerformed
         Configuration configuration = null;
-
+        
         try {
-
+            
             configuration = new Configuration(this, true);
-
+            
             if (configuration.isVisible()) {
                 configuration.setVisible(false);
             } else {
                 configuration.setVisible(true);
             }
-
+            
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jMenuItemConfigurationActionPerformed
@@ -259,6 +265,11 @@ public class MainFrame extends JFrame {
     private void jMenuItemIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemIPActionPerformed
         new SearchIPAddress(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItemIPActionPerformed
+    
+    //==========================================================================
+    private void jMenuItemSubnetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSubnetActionPerformed
+        new SearchSubnet(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItemSubnetActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
