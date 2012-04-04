@@ -66,9 +66,9 @@ public class SubNavigator extends FactoryTab {
                     String tabName = TabName.getTabName(subNavigator, string);
                     addTabComponent(tabName, component);
                 } catch (Exception e) {
-                    notifications.error("error in name of tab",e);
+                    notifications.error("error in name of tab", e);
                 }
-                
+
             }
         });
         t.setName("addTabsubnavigator");
@@ -300,7 +300,7 @@ public class SubNavigator extends FactoryTab {
         }
 
         return nComponent;
-    } // end getComponentSameName
+    } // end getComponentSameName    
 
     //==========================================================================
     private void closeAllTabs() {

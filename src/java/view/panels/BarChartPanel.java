@@ -132,7 +132,7 @@ public class BarChartPanel extends FactoryPanel {
 
     //==========================================================================
     private void createChart() {
-        barChart = new BarChart(subPiece, dataset, "", "", "", list);
+        barChart = new BarChart(subPiece, dataset, subPiece.getView(), "", "", list);
     }
 
     //==========================================================================
@@ -535,5 +535,12 @@ public class BarChartPanel extends FactoryPanel {
             super.finalize();
         }
     } // end finalize
+
+    //==========================================================================
+    @Override
+    public Object getData() {
+        return barChart.createChart(dataset);
+    } // end getData
+    
 } // end class
 

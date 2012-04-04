@@ -17,6 +17,9 @@ public abstract class FactoryPanel extends JPanel implements DropTargetListener 
     public abstract void setname();
 
     //==========================================================================
+    public abstract Object getData();
+    
+    //==========================================================================
     public abstract SubPiece getSubPiece();
     
     //==========================================================================
@@ -44,5 +47,6 @@ public abstract class FactoryPanel extends JPanel implements DropTargetListener 
     //==========================================================================
     public void drop(DropTargetDropEvent dtde) {
     } // end drop
+    
 } // end class
 

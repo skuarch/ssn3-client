@@ -47,7 +47,7 @@ public class EventViewer extends JDialog {
 
     private synchronized static void createInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new EventViewer(MainFrame.getInstance(), false);
+            INSTANCE = new EventViewer(null, false);
         }
     }
 

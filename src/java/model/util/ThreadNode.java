@@ -25,7 +25,7 @@ public class ThreadNode extends Thread {
     public void run() {
 
         if (server == null) {
-            System.out.println("server is null");
+            new Thrower().exception(new NullPointerException("server is null"));
             return;
         }
 

@@ -212,8 +212,7 @@ public class SwingUtilities {
             collectors[0] = "select a collector";
 
             if (servers.length > 0) {
-                for (int i = 1; i < collectors.length; i++) {
-                    System.out.println("servers " + servers[i - 1]);
+                for (int i = 1; i < collectors.length; i++) {                    
                     collectors[i] = servers[i - 1];
                 }
             }

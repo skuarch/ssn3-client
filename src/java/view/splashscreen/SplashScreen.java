@@ -65,8 +65,9 @@ public class SplashScreen extends JFrame {
 
         try {
             
+            MainFrame.getInstance();
             new Authentication().validateUser("", "");             
-            new Login().setVisible(true);
+            new Login().setVisible(true);            
 
         } catch (Exception e) {
             notifications.error("error loading interface", e);

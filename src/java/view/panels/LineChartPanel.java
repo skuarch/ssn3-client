@@ -48,11 +48,18 @@ public class LineChartPanel extends FactoryPanel {
         this.notifications = new Notifications();
         this.list = new JList();
         this.loadingPanel = new LoadingPanel();
-        footer = new Footer(subPiece);        
+        footer = new Footer(subPiece);
         onLoad();
     } // end LineChartPanel
-
+    
     //==========================================================================
+    //@Override
+    public Object getData() {
+        return lineChart.createChart(dataset);
+    }
+    
+    //==========================================================================
+
     private void onLoad() {
 
         setname();
@@ -355,7 +362,7 @@ public class LineChartPanel extends FactoryPanel {
     protected void finalize() throws Throwable {
 
         try {
-            destroy();            
+            destroy();
             notifications = null;
             list = null;
             loadingPanel = null;

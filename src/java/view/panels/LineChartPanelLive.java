@@ -150,7 +150,7 @@ public class LineChartPanelLive extends FactoryPanel {
 
         threadLive.start();
 
-    }
+    } // end live
 
     //==========================================================================
     public void destroy() {
@@ -481,6 +481,13 @@ public class LineChartPanelLive extends FactoryPanel {
             super.finalize();
         }
         
+    } // end finalize
+
+    //==========================================================================
+    @Override
+    public Object getData() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
+    
 } // end class
 

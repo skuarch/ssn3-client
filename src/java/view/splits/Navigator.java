@@ -178,8 +178,8 @@ public class Navigator extends FactoryTab {
             notifications.error("error adding tab", e);
         }
 
-    } // end addTabInSubNavigator
-
+    } // end addTabInSubNavigator    
+    
     //==========================================================================
     @Override
     public JButton getCloseButton(final String nameComponent) {

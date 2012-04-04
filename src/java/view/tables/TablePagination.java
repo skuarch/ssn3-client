@@ -412,6 +412,13 @@ public class TablePagination extends FactoryPanel {
             super.finalize();
         }
 
-    }
+    } // end finalize
+
+    //==========================================================================
+    @Override
+    public Object getData() {
+        return arrayList;
+    } // end getData
+    
 } // end class
 

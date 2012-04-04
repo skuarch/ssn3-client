@@ -6,6 +6,7 @@
 package view.dialogs;
 
 import controllers.ControllerExporter;
+import java.awt.Component;
 import model.beans.SubPiece;
 import org.jfree.chart.JFreeChart;
 import view.notifications.Notifications;
@@ -73,7 +74,23 @@ public class SaveData extends javax.swing.JDialog {
             notifications.error("error creating pdf", e);
         }
 
-    } // end createPDF
+    } // end exportChartToPDF
+
+    //==========================================================================
+    public void createPdfReport(Component[] subs, String path) {
+
+        try {
+
+            EventViewer.getInstance().appendInfoTextConsole("creating report in " + path);
+            new ControllerExporter().createPdfReport(subs, path);
+            setTextLabelInfo("The file has been created");
+            setIndeterminateBar(false);
+
+        } catch (Exception e) {
+            setVisible(false);
+            notifications.error("error creating pdf", e);
+        }
+    } //  end createPdfReport
 
     //==========================================================================
     /**
