@@ -23,7 +23,6 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.jfree.chart.JFreeChart;
-import view.dialogs.ChooserFile;
 import view.frames.MainFrame;
 import view.notifications.Notifications;
 import view.panels.FactoryPanel;
@@ -198,7 +197,7 @@ public class Exporter {
     } // end exportPDF
 
     //==========================================================================
-    public void createPdfReport(Component[] subs, String path) {
+    public void createPDFReport(Component[] subs, String path) {
 
         if (subs == null || subs.length < 1) {
             notifications.error("imposible create report", new NullPointerException());
@@ -212,14 +211,12 @@ public class Exporter {
         SubNavigator subNavigator = null;
         Component[] tabs = null;
         FactoryPanel factoryPanel = null;
-        ChooserFile chooserFile = null;
         Document document = null;
         PdfWriter pdfWriter = null;
         HeaderFooter headerFooter = null;
         Image image = null;
         Watermark watermark = null;
         String stringHeader = null;
-        Paragraph paragraph = null;
         PdfContentByte pdfContentByte = null;
         PdfTemplate pdfTemplate = null;
         Graphics2D graphics2d = null;
@@ -235,6 +232,7 @@ public class Exporter {
         Cell cell = null;
         Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 9, Font.BOLD, new Color(0, 0, 0));
         Font cellFont = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.NORMAL, new Color(0, 0, 0));
+        Phrase pHeader = null;
 
         try {
 
@@ -244,14 +242,14 @@ public class Exporter {
             if (subs != null) {
 
                 document = new Document(PageSize.LETTER, 50, 50, 50, 50);
-                pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(path + "/pdf.pdf"));
+                pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(path + "/ssn-report.pdf"));
                 image = Image.getInstance(MainFrame.class.getResource("/view/images/watermark.png"));
                 image.setAbsolutePosition(270, 60);
                 watermark = new Watermark(image, 250, 350);
                 stringHeader = "Sispro Sniffer Network   [ " + new ControllerConfiguration().getInitialConfiguration().getProjectName() + " ]      page: ";
 
                 //firts page                
-                Phrase pHeader = new Phrase(stringHeader, FontFactory.getFont(FontFactory.HELVETICA, 14, Font.BOLD, new Color(175, 175, 175)));
+                pHeader = new Phrase(stringHeader, FontFactory.getFont(FontFactory.HELVETICA, 14, Font.BOLD, new Color(175, 175, 175)));
                 headerFooter = new HeaderFooter(pHeader, true);
                 document.setHeader(headerFooter);
                 document.add(watermark);
@@ -282,7 +280,6 @@ public class Exporter {
 
                             if (tabs[p] instanceof FactoryPanel) {
 
-                                System.out.println(" components: " + tabs[p].getName());
                                 factoryPanel = (FactoryPanel) tabs[p];
                                 subPiece = factoryPanel.getSubPiece();
                                 //information
@@ -291,8 +288,7 @@ public class Exporter {
                                 //table or chart
                                 if (subPiece.isTable()) {
 
-                                    //creating table****************************
-                                    System.out.println("is table");
+                                    //creating table****************************                                    
                                     arrayList = (ArrayList) factoryPanel.getData();
                                     columnNames = (String[]) arrayList.get(0);
                                     data = (Object[][]) arrayList.get(1);

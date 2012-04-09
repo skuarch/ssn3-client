@@ -20,11 +20,11 @@ public class PieceUtilities {
     //==========================================================================
     public SubPiece createSubPieceFromSubPiece(SubPiece subPiece) {
 
-        if(subPiece == null){
+        if (subPiece == null) {
             notifications.error("error subpiece is null", new NullPointerException("subPiece is null"));
             return null;
         }
-        
+
         SubPiece newSubPiece = null;
 
         try {
@@ -52,6 +52,7 @@ public class PieceUtilities {
             newSubPiece.setIpAddress(subPiece.getIpAddress());
             newSubPiece.setWebsites(subPiece.getWebsites());
             newSubPiece.isTable(subPiece.isTable());
+            newSubPiece.setPortNumber(subPiece.getPortNumber());
 
         } catch (Exception e) {
             notifications.error("error creating sub-piece", e);
@@ -78,7 +79,7 @@ public class PieceUtilities {
                 {"collector", subPiece.getCollector()},
                 {"collector type", subPiece.getCollectorType()},
                 {"dates", subPiece.getDates()},
-                {"drill down", subPiece.getDrillDown()},                
+                {"drill down", subPiece.getDrillDown()},
                 {"notes", subPiece.getNotes()},
                 {"limit", subPiece.getLimit()},
                 {"categorie", subPiece.getCategorie()},
@@ -94,7 +95,8 @@ public class PieceUtilities {
                 {"secondLive", subPiece.getSecondsLive()},
                 {"ip address", subPiece.getIpAddress()},
                 {"websites", subPiece.getWebsites()},
-                {"is table", subPiece.isTable() + ""}
+                {"is table", subPiece.isTable() + ""},
+                {"portNumber", subPiece.getPortNumber()}                
             };
 
             areturn = array;
@@ -139,6 +141,7 @@ public class PieceUtilities {
             hashMap.put("ip address", subPiece.getIpAddress());
             hashMap.put("websites", subPiece.getWebsites());
             hashMap.put("is table", subPiece.isTable());
+            hashMap.put("port number", subPiece.getPortNumber());
 
         } catch (Exception e) {
             notifications.error("error creating hashmap", e);

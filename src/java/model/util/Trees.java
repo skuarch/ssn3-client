@@ -36,6 +36,8 @@ public class Trees {
 
             while (resultSetCategories.next()) {
 
+                System.out.println("categorie " + resultSetCategories.getString("categorie_name"));
+                
                 categorie = new DefaultMutableTreeNode(resultSetCategories.getString("categorie_name"));
                 rootNode.add(categorie);
                 resultSetSubCategories.beforeFirst();
@@ -43,6 +45,7 @@ public class Trees {
                 while (resultSetSubCategories.next()) {
                     if (resultSetSubCategories.getInt("subcategorie_categorie_id") == resultSetCategories.getInt("categorie_id")) {
                         //subcategorie
+                        System.out.println("categotie name " + resultSetSubCategories.getString("subcategorie_name"));
                         categorie.add(new DefaultMutableTreeNode(resultSetSubCategories.getString("subcategorie_name")));
                     }
                 } // while subcategories

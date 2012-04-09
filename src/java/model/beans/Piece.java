@@ -94,4 +94,9 @@ public interface Piece {
     public void isTable(boolean flag);    
     public boolean isTable();    
 
+    //port number
+    public void setPortNumber(String portNumber);
+    public String getPortNumber();
+    
+    
 } // end interface

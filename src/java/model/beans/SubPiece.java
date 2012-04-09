@@ -28,6 +28,7 @@ public class SubPiece implements Piece {
     private String ipAddress = "not applicable";
     private String websites = "not applicable";
     private boolean isTable = false;
+    private String portNumber = "not applicable";
 
     //==========================================================================
     @Override
@@ -291,5 +292,17 @@ public class SubPiece implements Piece {
     @Override
     public boolean isTable() {
         return this.isTable;
+    }
+
+    //==========================================================================
+    @Override
+    public void setPortNumber(String portNumber) {
+        this.portNumber = portNumber;
+    }
+
+    //==========================================================================
+    @Override
+    public String getPortNumber() {
+        return this.portNumber;
     }
 } // end class

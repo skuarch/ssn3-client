@@ -1,31 +1,14 @@
 package view.frames;
 
-import com.lowagie.text.*;
-import com.lowagie.text.pdf.DefaultFontMapper;
-import com.lowagie.text.pdf.PdfContentByte;
-import com.lowagie.text.pdf.PdfTemplate;
-import com.lowagie.text.pdf.PdfWriter;
 import controllers.ControllerConfiguration;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics2D;
 import java.awt.Toolkit;
-import java.awt.geom.Rectangle2D;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
-import model.beans.SubPiece;
-import model.beans.User;
-import org.jfree.chart.JFreeChart;
 import view.dialogs.*;
 import view.helpers.ControlNavigators;
 import view.notifications.Notifications;
-import view.panels.FactoryPanel;
 import view.splits.Navigator;
-import view.splits.SubNavigator;
 import view.trees.TreeCollectors;
 import view.trees.TreeViews;
 
@@ -134,6 +117,10 @@ public class MainFrame extends JFrame {
     //==========================================================================
     private void createPdf() {
 
+        if(Navigator.getInstance().getTabCount() <= 0){
+            return;
+        }
+        
         new Thread(new Runnable() {
 
             public void run() {
@@ -143,7 +130,7 @@ public class MainFrame extends JFrame {
                     if (path != null) {
                         SaveData saveData = new SaveData(MainFrame.getInstance(), false);
                         saveData.setVisible(true);
-                        saveData.createPdfReport(Navigator.getInstance().getComponents(), path);
+                        saveData.createPDFReport(Navigator.getInstance().getComponents(), path);
                     }
                 } catch (Exception e) {
                     notifications.error("error creating pdf", e);
@@ -152,86 +139,7 @@ public class MainFrame extends JFrame {
         }).start();
 
 
-    } // end createPdf 
-
-    //==========================================================================
-    private Table tableSubPiece(SubPiece subPiece) {
-
-        Table table = null;
-        Cell c1 = null;
-        Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 9, Font.BOLD, new Color(0, 0, 0));
-        Font cellFont = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.NORMAL, new Color(0, 0, 0));
-
-        try {
-
-            table = new Table(2, 3);
-            table.setPadding(2);
-            table.setSpacing(2);
-            table.setSpaceBetweenCells(0);
-            c1 = new Cell(new Paragraph("Propertie", headerFont));
-            c1.setHeader(true);
-            table.addCell(c1);
-            c1 = new Cell(new Paragraph("Value", headerFont));
-            table.addCell(c1);
-            table.endHeaders();
-
-            table.addCell(new Paragraph("collector", cellFont));
-            table.addCell(new Paragraph(subPiece.getCollector(), cellFont));
-            table.addCell(new Paragraph("job", cellFont));
-            table.addCell(new Paragraph(subPiece.getJob(), cellFont));
-
-            if (!subPiece.getDates().equalsIgnoreCase("not applicable")) {
-                table.addCell(new Paragraph("dates", cellFont));
-                table.addCell(new Paragraph(subPiece.getDates(), cellFont));
-            }
-
-            if (!subPiece.getIpAddress().equalsIgnoreCase("not applicable")) {
-                table.addCell(new Paragraph("ip address", cellFont));
-                table.addCell(new Paragraph(subPiece.getIpAddress(), cellFont));
-            }
-
-            if (!subPiece.getDrillDown().equalsIgnoreCase("not applicable")) {
-                table.addCell(new Paragraph("drill down", cellFont));
-                table.addCell(new Paragraph(subPiece.getDrillDown(), cellFont));
-            }
-
-            if (!subPiece.getIPProtocols().equalsIgnoreCase("not applicable")) {
-                table.addCell(new Paragraph("ip protocols", cellFont));
-                table.addCell(new Paragraph(subPiece.getIPProtocols(), cellFont));
-            }
-
-            if (!subPiece.getNetworkProtocols().equalsIgnoreCase("not applicable")) {
-                table.addCell(new Paragraph("network protocols", cellFont));
-                table.addCell(new Paragraph(subPiece.getNetworkProtocols(), cellFont));
-            }
-
-            if (!subPiece.getTCPProtocols().equalsIgnoreCase("not applicable")) {
-                table.addCell(new Paragraph("tcp protocols", cellFont));
-                table.addCell(new Paragraph(subPiece.getTCPProtocols(), cellFont));
-            }
-
-            if (!subPiece.getUDPProtocols().equalsIgnoreCase("not applicable")) {
-                table.addCell(new Paragraph("udp protocols", cellFont));
-                table.addCell(new Paragraph(subPiece.getUDPProtocols(), cellFont));
-            }
-
-            if (!subPiece.getTypeService().equalsIgnoreCase("not applicable")) {
-                table.addCell(new Paragraph("type service", cellFont));
-                table.addCell(new Paragraph(subPiece.getTypeService(), cellFont));
-            }
-
-            if (!subPiece.getWebsites().equalsIgnoreCase("not applicable")) {
-                table.addCell(new Paragraph("websites", cellFont));
-                table.addCell(new Paragraph(subPiece.getWebsites(), cellFont));
-            }
-
-        } catch (Exception e) {
-            notifications.error("error creating table subpiece", e);
-        }
-
-        return table;
-
-    } // end tableSubPiece
+    } // end createPdf     
 
     //==========================================================================
     /**
@@ -257,6 +165,7 @@ public class MainFrame extends JFrame {
         jMenuSearch = new javax.swing.JMenu();
         jMenuItemSubnet = new javax.swing.JMenuItem();
         jMenuItemIP = new javax.swing.JMenuItem();
+        jMenuItemPort = new javax.swing.JMenuItem();
         jMenuItemCloseAll = new javax.swing.JMenuItem();
         jMenuItemReport = new javax.swing.JMenuItem();
 
@@ -316,6 +225,7 @@ public class MainFrame extends JFrame {
         });
         jMenu3.add(jMenuItemConfiguration);
 
+        jMenuSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/search.png"))); // NOI18N
         jMenuSearch.setText("search");
 
         jMenuItemSubnet.setText("subnet");
@@ -334,6 +244,14 @@ public class MainFrame extends JFrame {
         });
         jMenuSearch.add(jMenuItemIP);
 
+        jMenuItemPort.setText("port number");
+        jMenuItemPort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPortActionPerformed(evt);
+            }
+        });
+        jMenuSearch.add(jMenuItemPort);
+
         jMenu3.add(jMenuSearch);
 
         jMenuItemCloseAll.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
@@ -345,6 +263,7 @@ public class MainFrame extends JFrame {
         });
         jMenu3.add(jMenuItemCloseAll);
 
+        jMenuItemReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/pdf.png"))); // NOI18N
         jMenuItemReport.setText("create report");
         jMenuItemReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -419,6 +338,12 @@ public class MainFrame extends JFrame {
     private void jMenuItemReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReportActionPerformed
         createPdf();
     }//GEN-LAST:event_jMenuItemReportActionPerformed
+
+    //==========================================================================
+    private void jMenuItemPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPortActionPerformed
+        new SearchPort(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItemPortActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
@@ -428,6 +353,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem jMenuItemEventViewer;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemIP;
+    private javax.swing.JMenuItem jMenuItemPort;
     private javax.swing.JMenuItem jMenuItemReport;
     private javax.swing.JMenuItem jMenuItemSubnet;
     private javax.swing.JMenu jMenuSearch;

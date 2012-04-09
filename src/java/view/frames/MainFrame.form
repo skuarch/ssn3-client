@@ -54,6 +54,9 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="jMenuSearch">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/view/images/search.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="search"/>
               </Properties>
               <SubComponents>
@@ -73,6 +76,14 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemIPActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPort">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="port number"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPortActionPerformed"/>
+                  </Events>
+                </MenuItem>
               </SubComponents>
             </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCloseAll">
@@ -88,6 +99,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemReport">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/view/images/pdf.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="create report"/>
               </Properties>
               <Events>

@@ -27,8 +27,8 @@ public class ControllerExporter {
     }
     
     //==========================================================================
-    public void createPdfReport(Component[] subs,String path) throws Exception{
-        new Exporter().createPdfReport(subs,path);
+    public void createPDFReport(Component[] subs,String path) throws Exception{
+        new Exporter().createPDFReport(subs,path);
     }
     
     

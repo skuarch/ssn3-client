@@ -77,12 +77,12 @@ public class SaveData extends javax.swing.JDialog {
     } // end exportChartToPDF
 
     //==========================================================================
-    public void createPdfReport(Component[] subs, String path) {
+    public void createPDFReport(Component[] subs, String path) {
 
         try {
 
             EventViewer.getInstance().appendInfoTextConsole("creating report in " + path);
-            new ControllerExporter().createPdfReport(subs, path);
+            new ControllerExporter().createPDFReport(subs, path);
             setTextLabelInfo("The file has been created");
             setIndeterminateBar(false);
 
