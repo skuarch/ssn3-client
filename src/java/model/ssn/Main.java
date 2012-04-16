@@ -44,7 +44,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        try {
+        try {            
 
             //setting theme
             JFrame.setDefaultLookAndFeelDecorated(true);

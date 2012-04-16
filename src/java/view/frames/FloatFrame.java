@@ -123,22 +123,16 @@ public class FloatFrame extends JFrame {
     } // end closeMe
 
     //==========================================================================
-    public void destroy() {
-        
-    }
-
-    //==========================================================================
     @Override
     protected void finalize() throws Throwable {
 
         try {
-            destroy();
             floatFrame = null;
             component = null;
-            jButtonClose = new JButton();
-            jButtonOnTop = new JButton();
-            jButtonSwap = new JButton();
-            jToolBar = new JToolBar();
+            jButtonClose = null;
+            jButtonOnTop = null;
+            jButtonSwap = null;
+            jToolBar = null;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

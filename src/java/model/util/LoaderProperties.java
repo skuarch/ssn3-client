@@ -23,7 +23,7 @@ public class LoaderProperties {
             throw new NullPointerException("inputstream is null");
         }
 
-        Properties properties = null;        
+        Properties properties = null;
 
         try {
 
@@ -33,8 +33,7 @@ public class LoaderProperties {
         } catch (Exception e) {
             throw e;
         } finally {
-            IOUtilities.closeInputStream(inputStream);
-            inputStream = null;
+            IOUtilities.closeInputStream(inputStream);            
         }
 
         return properties;

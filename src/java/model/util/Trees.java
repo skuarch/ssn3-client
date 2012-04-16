@@ -35,8 +35,6 @@ public class Trees {
             resultSetSubCategories = connectPool.executeQuery("select * from subcategories where subcategorie_active = 1 order by subcategorie_categorie_id,subcategorie_order  asc");
 
             while (resultSetCategories.next()) {
-
-                System.out.println("categorie " + resultSetCategories.getString("categorie_name"));
                 
                 categorie = new DefaultMutableTreeNode(resultSetCategories.getString("categorie_name"));
                 rootNode.add(categorie);
@@ -44,11 +42,11 @@ public class Trees {
 
                 while (resultSetSubCategories.next()) {
                     if (resultSetSubCategories.getInt("subcategorie_categorie_id") == resultSetCategories.getInt("categorie_id")) {
-                        //subcategorie
-                        System.out.println("categotie name " + resultSetSubCategories.getString("subcategorie_name"));
+                        //subcategorie                        
                         categorie.add(new DefaultMutableTreeNode(resultSetSubCategories.getString("subcategorie_name")));
                     }
                 } // while subcategories
+                
             } // while categories            
 
         } catch (Exception e) {
@@ -61,7 +59,7 @@ public class Trees {
 
         return rootNode;
 
-    }
+    } // end getViewRootNode
 
     //==========================================================================
     public DefaultTreeModel getCollectorsModel() throws Exception {

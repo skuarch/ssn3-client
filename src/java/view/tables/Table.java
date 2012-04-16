@@ -29,13 +29,13 @@ public class Table extends FactoryPanel {
 
     private SubPiece subPiece = null;
     private LoadingPanel loadingPanel = null;
-    private Notifications notifications = null;    
+    private Notifications notifications = null;
     private DefaultTableModel model = null;
     private JScrollPane scrollPane = null;
     private JPanel footerPanel = null;
     private Thread execute = null;
     private ArrayList arrayList = null;
-    private JTable table = null;    
+    private JTable table = null;
     private JPanel panelFooter = null;
 
     //==========================================================================
@@ -43,7 +43,7 @@ public class Table extends FactoryPanel {
         this.subPiece = subPiece;
         arrayList = new ArrayList();
         loadingPanel = new LoadingPanel();
-        notifications = new Notifications();        
+        notifications = new Notifications();
         scrollPane = new JScrollPane();
         footerPanel = new Footer(subPiece).getFooterTable();
         table = new JTable();
@@ -80,23 +80,25 @@ public class Table extends FactoryPanel {
 
         remover();
         setLoadingPanel();
-        
+
         execute = new Thread(new Runnable() {
 
             public void run() {
 
-                try{
-                    
+                try {
+
                     requestData();
                     createTable();
                     sortTable();
-                    createPanelFooter();                    
+                    createPanelFooter();
                     remover();
                     add(scrollPane, BorderLayout.CENTER);
-                    add(panelFooter, BorderLayout.SOUTH);                    
-                    
+                    add(panelFooter, BorderLayout.SOUTH);
+
                 } catch (Exception e) {
                     notifications.error("error creating table", e);
+                } finally {
+                    updateUI();
                 }
             }
         });
@@ -104,7 +106,7 @@ public class Table extends FactoryPanel {
         execute.start();
 
     } // end execute
-    
+
     //==========================================================================
     private void createPanelFooter() {
 
@@ -138,7 +140,7 @@ public class Table extends FactoryPanel {
         }
 
     } // end createFooter
-    
+
     //==========================================================================
     private void exportExcel() {
 
@@ -155,7 +157,7 @@ public class Table extends FactoryPanel {
         }).start();
 
     } // end exportExcel
-    
+
     //==========================================================================
     private void remover() {
         try {
@@ -174,14 +176,14 @@ public class Table extends FactoryPanel {
             removeAll();
         }
     }
-    
+
     //==========================================================================
     private void createTable() {
 
         String[] columnNames = null;
         Object[][] data = null;
 
-        try {            
+        try {
 
             columnNames = (String[]) arrayList.get(0);
             data = (Object[][]) arrayList.get(1);
@@ -209,7 +211,7 @@ public class Table extends FactoryPanel {
         }
 
     } // end createTable
-    
+
     //==========================================================================
     private void requestData() {
 
@@ -251,7 +253,7 @@ public class Table extends FactoryPanel {
         updateUI();
 
     } // end setLoadingPanel    
-    
+
     //==========================================================================
     @Override
     public void setname() {
@@ -302,5 +304,4 @@ public class Table extends FactoryPanel {
     public Object getData() {
         return arrayList;
     } // end getData
-    
 } // end class

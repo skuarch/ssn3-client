@@ -96,7 +96,7 @@ public class PieceUtilities {
                 {"ip address", subPiece.getIpAddress()},
                 {"websites", subPiece.getWebsites()},
                 {"is table", subPiece.isTable() + ""},
-                {"portNumber", subPiece.getPortNumber()}                
+                {"port number", subPiece.getPortNumber()}                
             };
 
             areturn = array;

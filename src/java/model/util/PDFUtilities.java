@@ -13,6 +13,11 @@ public class PDFUtilities {
     //==========================================================================
     public static Table tableSubPiece(SubPiece subPiece) throws Exception {
 
+        if (subPiece == null) {
+            throw new NullPointerException("subpiece is null");
+        }
+
+
         Table table = null;
         Cell c1 = null;
         Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 9, Font.BOLD, new Color(0, 0, 0));

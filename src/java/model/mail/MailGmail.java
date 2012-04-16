@@ -48,7 +48,7 @@ public class MailGmail implements Runnable {
     @Override
     public void run() {
 
-        if (this.from.equals("") || this.to.equals("") || this.subject.equals("") || this.message.equals("")) {
+        if (from == null || to == null || subject == null || message == null) {
             thrower.nullPointerException("some parameters are null or empty");
             return;
         }
@@ -81,7 +81,7 @@ public class MailGmail implements Runnable {
             t.connect(this.gmailUser, this.gmailPassword);
             t.sendMessage(msg, msg.getAllRecipients());
 
-            t.close();
+            t.close();            
 
         } catch (Exception e) {
             thrower.exception(e);

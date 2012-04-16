@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -48,7 +49,7 @@ public class TablePagination extends FactoryPanel {
 
     //==========================================================================
     public TablePagination(SubPiece subPiece) {
-        
+
         notifications = new Notifications();
         this.subPiece = subPiece;
         loadingPanel = new LoadingPanel();
@@ -106,18 +107,37 @@ public class TablePagination extends FactoryPanel {
                     add(scrollPane, BorderLayout.CENTER);
                     add(panelFooter, BorderLayout.SOUTH);
                     add(panelPagination, BorderLayout.NORTH);
-                    updateUI();
 
                 } catch (Exception e) {
                     notifications.error("error creating panel", e);
+                } finally {
+                    updateUI();
                 }
 
             }
         });
         execute.start();
         execute.setName("TablePagination.execute");
-
     }
+
+    //==========================================================================
+    @Override
+    public void updateUI() {
+
+        new Thread(new Runnable() {
+
+            public void run() {
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    public void run() {
+                        TablePagination.super.updateUI();
+                    }
+                });
+            }
+        }).start();
+
+
+    } // end updateUI
 
     //==========================================================================
     private void createPanelPagination() {
@@ -299,7 +319,7 @@ public class TablePagination extends FactoryPanel {
         String[] columnNames = null;
         Object[][] data = null;
 
-        try {            
+        try {
 
             columnNames = (String[]) arrayList.get(0);
             data = (Object[][]) arrayList.get(1);
@@ -381,7 +401,7 @@ public class TablePagination extends FactoryPanel {
         }
 
     }
-    
+
     //==========================================================================
     @Override
     public Class getclass() {
@@ -419,6 +439,5 @@ public class TablePagination extends FactoryPanel {
     public Object getData() {
         return arrayList;
     } // end getData
-    
 } // end class
 

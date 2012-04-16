@@ -18,6 +18,10 @@ public class DataTable {
     //==========================================================================
     public Object getDataTable(SubPiece subPiece) throws Exception {
 
+        if (subPiece == null) {
+            throw new NullPointerException("subpiece is null");
+        }
+
         Object object = null;
         Configuration configuration = null;
 
@@ -28,9 +32,9 @@ public class DataTable {
 
         } catch (Exception e) {
             throw e;
+        } finally {
+            return object;
         }
-
-        return object;
 
     } // end getDataTable
 } // end class

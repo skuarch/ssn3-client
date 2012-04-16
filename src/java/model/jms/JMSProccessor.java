@@ -52,6 +52,10 @@ public class JMSProccessor extends JMS {
             throw new NullPointerException("key is null or empty");
         }
 
+        if (objectMessage == null) {
+            throw new NullPointerException("objectMessage is null or empty");
+        }
+
         String sendBy = null;
         String tagBy = null;
 
@@ -89,6 +93,10 @@ public class JMSProccessor extends JMS {
         if (time <= 0) {
             throw new NullPointerException("time is 0 or less than 0");
         }
+        
+        if (topicSubscriber == null) {
+            throw new NullPointerException("topicSubscriber is null or empty");
+        }
 
         Object data = null;
         String tagTo = null;
@@ -111,7 +119,7 @@ public class JMSProccessor extends JMS {
 
                         //on error
                         if (message.getStringProperty("error") != null) {
-                            throw new Exception("error recivieng data", new Exception(message.getStringProperty("error")));
+                            throw new Exception("error in data", new Exception(message.getStringProperty("error")));
                         }
 
                         EventViewer.getInstance().appendInfoTextConsole("receiving message from " + message.getStringProperty("sendBy") + " " + message.getStringProperty("type") + " " + message.getStringProperty("select"));
@@ -131,7 +139,7 @@ public class JMSProccessor extends JMS {
         } catch (Exception e) {
             throw e;
         }
-        
+
         return data;
 
     } // end receive

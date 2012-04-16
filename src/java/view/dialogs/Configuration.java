@@ -1,6 +1,8 @@
 package view.dialogs;
 
 import controllers.ControllerConfiguration;
+import java.awt.Frame;
+import javax.swing.JDialog;
 import model.beans.User;
 import view.notifications.Notifications;
 
@@ -8,7 +10,7 @@ import view.notifications.Notifications;
  *
  * @author skuarch
  */
-public class Configuration extends javax.swing.JDialog {
+public class Configuration extends JDialog {
     
     private Notifications notifications = null;
     private model.beans.Configuration configuration = null;
@@ -17,7 +19,7 @@ public class Configuration extends javax.swing.JDialog {
     /**
      * Creates new form Configuration
      */
-    public Configuration(java.awt.Frame parent, boolean modal) {
+    public Configuration(Frame parent, boolean modal) {
         super(parent, modal);
         notifications = new Notifications();
         initComponents();

@@ -10,7 +10,11 @@ import java.util.Date;
 public class DateUtilities {
 
     //=========================================================================
-    public static String getDate(double timeStamp) {        
+    public static String getDate(double timeStamp) throws Exception {        
+        
+        if(timeStamp < 1){
+            throw new Exception("the timeStamp is incorrect");
+        }
         
         Timestamp t = new Timestamp((long) timeStamp);
         return t.toString().substring(0, 19);

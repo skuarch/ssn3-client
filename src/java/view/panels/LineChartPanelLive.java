@@ -480,7 +480,7 @@ public class LineChartPanelLive extends FactoryPanel {
         } finally {
             super.finalize();
         }
-        
+
     } // end finalize
 
     //==========================================================================
@@ -488,6 +488,5 @@ public class LineChartPanelLive extends FactoryPanel {
     public Object getData() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
 } // end class
 

@@ -31,13 +31,13 @@ public class Dataset {
         try {
 
             configuration = new ControllerConfiguration().getInitialConfiguration();
-            categoryDataset = (CategoryDataset) new JMSProccessor().sendReceive(subPiece.getView(), subPiece.getCollector(), "srs", configuration.getJmsTimeWaitMessage(), new PieceUtilities().subPieceToHashMap(subPiece));            
+            categoryDataset = (CategoryDataset) new JMSProccessor().sendReceive(subPiece.getView(), subPiece.getCollector(), "srs", configuration.getJmsTimeWaitMessage(), new PieceUtilities().subPieceToHashMap(subPiece));
 
         } catch (Exception e) {
             throw e;
+        } finally {
+            return categoryDataset;
         }
-
-        return categoryDataset;
 
     } // end getCategoryDataset
 
@@ -53,15 +53,14 @@ public class Dataset {
 
         try {
 
-            configuration = new ControllerConfiguration().getInitialConfiguration();            
+            configuration = new ControllerConfiguration().getInitialConfiguration();
             xyDataset = (XYDataset) new JMSProccessor().sendReceive(subPiece.getView(), subPiece.getCollector(), "srs", configuration.getJmsTimeWaitMessage(), new PieceUtilities().subPieceToHashMap(subPiece));
-
 
         } catch (Exception e) {
             throw e;
+        } finally {
+            return xyDataset;
         }
-
-        return xyDataset;
 
     }
 } // end class

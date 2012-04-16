@@ -51,15 +51,14 @@ public class LineChartPanel extends FactoryPanel {
         footer = new Footer(subPiece);
         onLoad();
     } // end LineChartPanel
-    
+
     //==========================================================================
     //@Override
     public Object getData() {
         return lineChart.createChart(dataset);
     }
-    
-    //==========================================================================
 
+    //==========================================================================
     private void onLoad() {
 
         setname();
@@ -110,10 +109,11 @@ public class LineChartPanel extends FactoryPanel {
                         remove(loadingPanel);
                         add(chartPanel, BorderLayout.CENTER);
                         add(footer.getFooterLineChart(list), BorderLayout.SOUTH);
-                        updateUI();
-
+                        
                     } catch (Exception e) {
                         notifications.error("error creating chart", e);
+                    } finally {
+                        updateUI();
                     }
 
                 }

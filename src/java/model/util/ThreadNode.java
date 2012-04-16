@@ -28,6 +28,11 @@ public class ThreadNode extends Thread {
             new Thrower().exception(new NullPointerException("server is null"));
             return;
         }
+        
+        if(arrayNodes == null){
+            new Thrower().exception(new NullPointerException("arrayNodes is null"));
+            return;
+        }
 
         DefaultMutableTreeNode node = null;
         boolean connectivity = false;

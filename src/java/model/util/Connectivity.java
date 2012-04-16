@@ -11,11 +11,8 @@ import model.jms.JMSProccessor;
  */
 public class Connectivity {
 
-    private Configuration configuration = null;
-
     //==========================================================================
     public Connectivity() throws Exception {
-        configuration = new ControllerConfiguration().getInitialConfiguration();
     } // end Connectivity    
 
     //==========================================================================
@@ -25,26 +22,27 @@ public class Connectivity {
             throw new NullPointerException("host is empty or null");
         }
 
+        Configuration configuration = null;
         boolean flag = false;
         int time = 0;
         Object object = null;
 
         try {
 
+            configuration = new ControllerConfiguration().getInitialConfiguration();
             time = configuration.getJmsTimeWaitConnectivity();
             object = new JMSProccessor().sendReceive("connectivity", host, "srs", time, new PieceUtilities().subPieceToHashMap(new SubPiece()));
-            
-            if(object !=null){
+
+            if (object != null) {
                 flag = (Boolean) object;
-            }            
+            }
 
         } catch (Exception e) {
             throw e;
         } finally {
             configuration = null;
+            return flag;
         }
-
-        return flag;
 
     } // end requestConnectivity
 } // end class

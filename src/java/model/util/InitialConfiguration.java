@@ -45,8 +45,8 @@ public class InitialConfiguration {
             System.out.println("creating default configuration");
             configuration = new Configuration();
             configuration.setProjectName("SSN");
-            configuration.setJmsTimeWaitConnectivity(5000);
-            configuration.setJmsTimeWaitMessage(60000);
+            configuration.setJmsTimeWaitConnectivity(5000); // 5 seconds
+            configuration.setJmsTimeWaitMessage(60000); // 60 seconds
             configuration.setJWSPath("http://localhost:8080/ssn/ssn-app-client");
             configuration.setHelpPath("http://localhost:8080/ssn-war/help");
 

@@ -49,6 +49,10 @@ public class DAO {
     //==========================================================================
     public long create(Object object) throws Exception {
 
+        if(object == null){
+            throw new NullPointerException("object is null");
+        }
+        
         long id = 0;
 
         try {

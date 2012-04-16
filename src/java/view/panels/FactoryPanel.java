@@ -5,7 +5,9 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import model.beans.SubPiece;
+import view.tables.Table;
 
 /**
  *
@@ -18,10 +20,10 @@ public abstract class FactoryPanel extends JPanel implements DropTargetListener 
 
     //==========================================================================
     public abstract Object getData();
-    
+
     //==========================================================================
     public abstract SubPiece getSubPiece();
-    
+
     //==========================================================================
     public abstract void destroy();
 
@@ -47,6 +49,24 @@ public abstract class FactoryPanel extends JPanel implements DropTargetListener 
     //==========================================================================
     public void drop(DropTargetDropEvent dtde) {
     } // end drop
-    
+
+    //==========================================================================
+    @Override
+    public void updateUI() {
+
+        new Thread(new Runnable() {
+
+            public void run() {
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    public void run() {                        
+                        FactoryPanel.super.updateUI();
+                    }
+                });
+            }
+        }).start();
+
+
+    } // end updateUI
 } // end class
 

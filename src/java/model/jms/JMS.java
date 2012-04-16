@@ -1,14 +1,8 @@
 package model.jms;
 
-import javax.jms.MessageProducer;
-import javax.jms.ObjectMessage;
-import javax.jms.Topic;
-import javax.jms.TopicConnection;
-import javax.jms.TopicConnectionFactory;
-import javax.jms.TopicSession;
-import javax.jms.TopicSubscriber;
-import model.util.JMSUtilities;
+import javax.jms.*;
 import model.ssn.Main;
+import model.util.JMSUtilities;
 
 /**
  *
@@ -16,7 +10,6 @@ import model.ssn.Main;
  */
 public class JMS {
 
-    //private Notifications notifications = null;
     private TopicConnectionFactory topicConnectionFactory = null;
     private Topic topic = null;
     private TopicSession topicSession = null;
@@ -51,6 +44,10 @@ public class JMS {
             //for receive
             topicSubscriber = topicSession.createSubscriber(topic);
 
+        } catch (NullPointerException npe) {
+            System.out.println("imposible create connection JMS.initComponents() " + npe);
+            npe.printStackTrace();
+            return;
         } catch (Exception e) {
             throw e;
         }

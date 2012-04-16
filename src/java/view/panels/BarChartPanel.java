@@ -40,7 +40,6 @@ public class BarChartPanel extends FactoryPanel {
     private JList list = null;
     private JPanel panelPagination = null;
     private int totalResult = 0;
-    private int numBars = 0;
     private CategoryDataset dataset = null;
     private Thread execute = null;
     private int limit1 = 1;
@@ -84,7 +83,6 @@ public class BarChartPanel extends FactoryPanel {
 
                     requestTotalResult();
                     requestDataset();
-                    //setNumBars(); xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                     createChart();
                     createPanelFooter();
                     createPanelPagination();
@@ -93,10 +91,11 @@ public class BarChartPanel extends FactoryPanel {
                     add(panelBarChart, BorderLayout.CENTER);
                     add(panelFooter, BorderLayout.SOUTH);
                     add(panelPagination, BorderLayout.NORTH);
-                    updateUI();
 
                 } catch (Exception e) {
                     notifications.error("error creating panel", e);
+                } finally {
+                    updateUI();
                 }
             }
         });
@@ -123,17 +122,12 @@ public class BarChartPanel extends FactoryPanel {
         } finally {
             removeAll();
         }
-    }
-
-    //==========================================================================
-    private void setNumBars() {
-        numBars = dataset.getColumnKeys().size();
-    }
+    } // remover
 
     //==========================================================================
     private void createChart() {
         barChart = new BarChart(subPiece, dataset, subPiece.getView(), "", "", list);
-    }
+    } // end createChart
 
     //==========================================================================
     @Override
@@ -451,18 +445,20 @@ public class BarChartPanel extends FactoryPanel {
         } catch (Exception e) {
             notifications.error("error requesting result", e);
         }
-    }
+    } // end requestTotalResult
 
     //==========================================================================
     private void requestDataset() {
 
         try {
+
             dataset = (CategoryDataset) new ControllerRequestObject().getObject(subPiece);
+
         } catch (Exception e) {
             notifications.error("error", e);
         }
 
-    }
+    } // end requestDataset
 
     //==========================================================================
     private void setLoadingPanel() {
@@ -522,7 +518,6 @@ public class BarChartPanel extends FactoryPanel {
             list = null;
             panelPagination = null;
             totalResult = 0;
-            numBars = 0;
             dataset = null;
             execute = null;
             limit1 = 1;
@@ -541,6 +536,24 @@ public class BarChartPanel extends FactoryPanel {
     public Object getData() {
         return barChart.createChart(dataset);
     } // end getData
-    
+
+    //==========================================================================
+    @Override
+    public void updateUI() {
+
+        new Thread(new Runnable() {
+
+            public void run() {
+                javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
+                    public void run() {
+                        BarChartPanel.super.updateUI();
+                    }
+                });
+            }
+        }).start();
+
+
+    } // end updateUI
 } // end class
 

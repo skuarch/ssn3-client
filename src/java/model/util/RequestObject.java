@@ -17,6 +17,10 @@ public class RequestObject {
     //==========================================================================
     public Object getObject(SubPiece subPiece) throws Exception {
 
+        if(subPiece == null){
+            throw new NullPointerException("subpiece is null");
+        }
+        
         int time = 0;
         JMSProccessor jmsp = null;
         Object object = null;

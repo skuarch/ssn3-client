@@ -1,6 +1,7 @@
 package model.mail;
 
 import controllers.ControllerConfiguration;
+import model.beans.Configuration;
 import model.util.PropertieWrapper;
 
 /**
@@ -17,7 +18,7 @@ public class SendMail {
     //==========================================================================
     public void sendEventViewer(String message) throws Exception {
 
-        if (message == null) {
+        if (message == null || message.length() < 1) {
             throw new Exception("the message is null");
         }
 
@@ -26,12 +27,14 @@ public class SendMail {
         String subject = null;
         String gMailUser = null;
         String gMailPassword = null;
+        Configuration configuration = null;
 
         try {
 
+            configuration = new ControllerConfiguration().getInitialConfiguration();
             from = PropertieWrapper.getStringValue("mail");
             to = PropertieWrapper.getStringValue("mail.to");
-            subject = "event viewer " + new ControllerConfiguration().getInitialConfiguration().getProjectName();
+            subject = "event viewer " + configuration.getProjectName();
             gMailUser = PropertieWrapper.getStringValue("gmail.user");
             gMailPassword = PropertieWrapper.getStringValue("gmail.password");
 

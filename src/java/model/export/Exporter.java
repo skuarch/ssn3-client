@@ -17,6 +17,7 @@ import model.beans.Configuration;
 import model.beans.SubPiece;
 import model.beans.User;
 import model.jms.JMSProccessor;
+import model.util.DateUtilities;
 import model.util.PDFUtilities;
 import model.util.PieceUtilities;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -197,7 +198,7 @@ public class Exporter {
     } // end exportPDF
 
     //==========================================================================
-    public void createPDFReport(Component[] subs, String path) {
+    public void createPDFReport(Component[] subs, String path) throws Exception {
 
         if (subs == null || subs.length < 1) {
             notifications.error("imposible create report", new NullPointerException());
@@ -233,6 +234,8 @@ public class Exporter {
         Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 9, Font.BOLD, new Color(0, 0, 0));
         Font cellFont = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.NORMAL, new Color(0, 0, 0));
         Phrase pHeader = null;
+        Anchor anchor = null;
+        Paragraph paragraph = null;
 
         try {
 
@@ -242,7 +245,7 @@ public class Exporter {
             if (subs != null) {
 
                 document = new Document(PageSize.LETTER, 50, 50, 50, 50);
-                pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(path + "/ssn-report.pdf"));
+                pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(path + "/ssn-report-"+DateUtilities.getCurrentDate().replace(":", "-") +".pdf"));
                 image = Image.getInstance(MainFrame.class.getResource("/view/images/watermark.png"));
                 image.setAbsolutePosition(270, 60);
                 watermark = new Watermark(image, 250, 350);
@@ -257,12 +260,39 @@ public class Exporter {
                 document.open();
 
                 document.add(new Paragraph("Report information", FontFactory.getFont(FontFactory.HELVETICA, 15, Font.BOLD, new Color(0, 0, 0))));
-                document.add(new Paragraph("Report created on " + new Date(), FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL, new Color(175, 175, 175))));
+                document.add(new Paragraph("Report created on " + DateUtilities.getCurrentDate(), FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL, new Color(175, 175, 175))));
                 document.add(new Paragraph("Client information", FontFactory.getFont(FontFactory.HELVETICA, 14, Font.BOLD, new Color(0, 0, 0))));
                 document.add(new Paragraph(new ControllerConfiguration().getInitialConfiguration().getProjectName(), FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL, new Color(175, 175, 175))));
                 document.add(new Paragraph("Analyst information", FontFactory.getFont(FontFactory.HELVETICA, 14, Font.BOLD, new Color(0, 0, 0))));
                 document.add(new Paragraph("Report created by: " + User.getInstance().getName(), FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL, new Color(175, 175, 175))));
 
+                //index
+                document.newPage();
+                paragraph = new Paragraph("Content\n",FontFactory.getFont(FontFactory.HELVETICA, 14, Font.BOLD, new Color(175, 175, 175)));
+                paragraph.setAlignment(Element.ALIGN_CENTER);
+                document.add(paragraph);               
+                
+                for (int i = 0; i < subs.length; i++) {
+
+                    if (subs[i] instanceof SubNavigator) {
+                        subNavigator = (SubNavigator) subs[i];
+                        anchor = new Anchor("\n" + subs[i].getName() + "\n");
+                        document.add(anchor);                        
+                        tabs = subNavigator.getComponents();
+                        for (int j = 0; j < tabs.length; j++) {
+
+                            if (tabs[j] instanceof FactoryPanel) {
+                                factoryPanel = (FactoryPanel) tabs[j];
+                                anchor = new Anchor(" -" + factoryPanel.getName() + "\n");
+                                anchor.setReference("#" + factoryPanel.getName());
+                                document.add(anchor);
+                            }
+
+                        }
+                    }
+                }
+
+                //createReport
                 for (int i = 0; i < subs.length; i++) {
 
                     if (subs[i] instanceof SubNavigator) {
@@ -282,6 +312,10 @@ public class Exporter {
 
                                 factoryPanel = (FactoryPanel) tabs[p];
                                 subPiece = factoryPanel.getSubPiece();
+                                Anchor a = new Anchor(factoryPanel.getName());
+                                a.setName(factoryPanel.getName());
+                                document.add(a);
+
                                 //information
                                 document.add(PDFUtilities.tableSubPiece(subPiece));
 
@@ -346,10 +380,11 @@ public class Exporter {
 
 
         } catch (Exception e) {
-            notifications.error("error creating pdf", e);
+            throw e;            
         } finally {
             document.close();
         }
 
     } // end createPdfReport    
 } // end class
+

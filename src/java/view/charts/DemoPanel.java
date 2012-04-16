@@ -9,9 +9,7 @@ package view.charts;
 
 import java.awt.LayoutManager;
 import java.util.List;
-
 import javax.swing.JPanel;
-
 import org.jfree.chart.JFreeChart;
 
 /**

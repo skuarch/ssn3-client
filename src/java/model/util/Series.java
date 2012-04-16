@@ -10,14 +10,18 @@ import model.jms.JMSProccessor;
  *
  * @author skuarch
  */
-public class Series {    
+public class Series {
 
     //==========================================================================
-    public Series() {        
+    public Series() {
     } // end Series
 
     //==========================================================================
-    public ArrayList getSeriesLive(SubPiece subPiece) throws Exception{
+    public ArrayList getSeriesLive(SubPiece subPiece) throws Exception {
+
+        if (subPiece == null) {
+            throw new NullPointerException("subpiece is null");
+        }
 
         ArrayList arrayList = null;
         JMSProccessor jmsp = null;
