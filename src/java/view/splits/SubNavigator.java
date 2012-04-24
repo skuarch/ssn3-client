@@ -1,5 +1,6 @@
 package view.splits;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -9,8 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import model.beans.SubPiece;
-import view.frames.FloatFrame;
 import view.dialogs.EventViewer;
+import view.frames.FloatFrame;
 import view.helpers.TabName;
 import view.notifications.Notifications;
 import view.panels.FactoryPanel;
@@ -233,7 +234,8 @@ public class SubNavigator extends FactoryTab {
             button = new JButton("");
             button.setPreferredSize(new Dimension(10, 10));
             button.setToolTipText("close this tab");
-
+            button.setBackground(Color.red);
+            
             button.addActionListener(new ActionListener() {
 
                 @Override

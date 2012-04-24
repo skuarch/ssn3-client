@@ -111,6 +111,7 @@ public class SwingUtilities {
     public static JButton getFloatButton() {
         JButton buttonFloat = new JButton();
         buttonFloat.setPreferredSize(new Dimension(10, 10));
+        buttonFloat.setBackground(Color.blue);
         return buttonFloat;
     } // end getFloatButton
 

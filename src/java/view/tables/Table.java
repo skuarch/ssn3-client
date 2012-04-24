@@ -31,8 +31,7 @@ public class Table extends FactoryPanel {
     private LoadingPanel loadingPanel = null;
     private Notifications notifications = null;
     private DefaultTableModel model = null;
-    private JScrollPane scrollPane = null;
-    private JPanel footerPanel = null;
+    private JScrollPane scrollPane = null;    
     private Thread execute = null;
     private ArrayList arrayList = null;
     private JTable table = null;
@@ -44,8 +43,7 @@ public class Table extends FactoryPanel {
         arrayList = new ArrayList();
         loadingPanel = new LoadingPanel();
         notifications = new Notifications();
-        scrollPane = new JScrollPane();
-        footerPanel = new Footer(subPiece).getFooterTable();
+        scrollPane = new JScrollPane();        
         table = new JTable();
         onLoad();
     } // end Table
@@ -215,9 +213,15 @@ public class Table extends FactoryPanel {
     //==========================================================================
     private void requestData() {
 
+        Object object = null;
+
         try {
 
-            arrayList = (ArrayList) new ControllerDataTable().getData(subPiece);
+            object = new ControllerDataTable().getData(subPiece);
+
+            if (object != null) {
+                arrayList = (ArrayList) object;
+            } 
 
         } catch (Exception e) {
             notifications.error("error creating table", e);

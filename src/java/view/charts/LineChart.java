@@ -105,11 +105,12 @@ public class LineChart extends ApplicationFrame implements AxisChangeListener {
 
         try {
 
-            data = new Object[2];
-            data[0] = DateUtilities.getDate(x1);
-            data[1] = DateUtilities.getDate(x2);
-
-            list.setListData(data);
+            if (x1 > 0 && x2 > 0) {
+                data = new Object[2];
+                data[0] = DateUtilities.getDate(x1);
+                data[1] = DateUtilities.getDate(x2);
+                list.setListData(data);
+            }
 
         } catch (Exception e) {
             notifications.error("error in zoom", e);

@@ -98,5 +98,9 @@ public interface Piece {
     public void setPortNumber(String portNumber);
     public String getPortNumber();
     
+    //hostname
+    public void setHostname(String hostname);
+    public String getHostname();
+    
     
 } // end interface

@@ -7,7 +7,6 @@ import java.awt.dnd.DropTargetListener;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import model.beans.SubPiece;
-import view.tables.Table;
 
 /**
  *

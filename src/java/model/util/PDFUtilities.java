@@ -86,6 +86,11 @@ public class PDFUtilities {
                 table.addCell(new Paragraph(subPiece.getWebsites(), cellFont));
             }
 
+            if (!subPiece.getHostname().equalsIgnoreCase("not applicable")) {
+                table.addCell(new Paragraph("hostname", cellFont));
+                table.addCell(new Paragraph(subPiece.getHostname(), cellFont));
+            }
+
         } catch (Exception e) {
             throw e;
         }

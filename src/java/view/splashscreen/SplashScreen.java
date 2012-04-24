@@ -1,9 +1,9 @@
 package view.splashscreen;
 
+import controllers.ControllerAuthentication;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import javax.swing.*;
-import model.authentication.Authentication;
 import view.frames.Login;
 import view.frames.MainFrame;
 import view.notifications.Notifications;
@@ -19,10 +19,10 @@ public class SplashScreen extends JFrame {
     private Notifications notifications = null;
 
     //==========================================================================
-    public SplashScreen() {                
+    public SplashScreen() {
         progressbar = new JProgressBar();
         imageLabel = new JLabel();
-        notifications = new Notifications();        
+        notifications = new Notifications();
         initComponents();
         setLocationRelativeTo(getContentPane());
     } // end SplashScreen2
@@ -31,11 +31,11 @@ public class SplashScreen extends JFrame {
     private void initComponents() {
 
         try {
-            
+
             setIconImage(Toolkit.getDefaultToolkit().getImage(SplashScreen.class.getResource("/view/images/ssnIcon.png")));
-            setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);            
+            setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             setUndecorated(true);
-            setTitle("Sispro Sniffer Network");            
+            setTitle("Sispro Sniffer Network");
             getRootPane().setWindowDecorationStyle(JRootPane.NONE);
             setLayout(new BorderLayout());
 
@@ -45,7 +45,6 @@ public class SplashScreen extends JFrame {
             add(progressbar, BorderLayout.SOUTH);
             progressbar.setString("loading");
 
-            
             pack();
 
         } catch (Exception e) {
@@ -64,10 +63,10 @@ public class SplashScreen extends JFrame {
     private void loader() {
 
         try {
-            
+
+            new ControllerAuthentication().login("", "");
             MainFrame.getInstance();
-            new Authentication().validateUser("", "");             
-            new Login().setVisible(true);            
+            new Login().setVisible(true);
 
         } catch (Exception e) {
             notifications.error("error loading interface", e);
@@ -75,5 +74,5 @@ public class SplashScreen extends JFrame {
             setVisible(false);
         }
 
-    }
-}
+    } // end loader
+} // end class

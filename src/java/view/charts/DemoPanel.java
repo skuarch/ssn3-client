@@ -17,7 +17,7 @@ import org.jfree.chart.JFreeChart;
  */
 public class DemoPanel extends JPanel {
 
-    List charts;
+    List chartsList;
 
     /**
      * Creates a new demo panel with the specified layout manager.
@@ -26,7 +26,7 @@ public class DemoPanel extends JPanel {
      */
     public DemoPanel(LayoutManager layout) {
         super(layout);
-        this.charts = new java.util.ArrayList();
+        this.chartsList = new java.util.ArrayList();
     }
 
     /**
@@ -36,7 +36,7 @@ public class DemoPanel extends JPanel {
      * @param chart  the chart.
      */
     public void addChart(JFreeChart chart) {
-        this.charts.add(chart);
+        this.chartsList.add(chart);
     }
 
     /**
@@ -45,10 +45,10 @@ public class DemoPanel extends JPanel {
      * @return The charts.
      */
     public JFreeChart[] getCharts() {
-        int chartCount = this.charts.size();
+        int chartCount = this.chartsList.size();
         JFreeChart[] charts = new JFreeChart[chartCount];
         for (int i = 0; i < chartCount; i++) {
-            charts[i] = (JFreeChart) this.charts.get(i);
+            charts[i] = (JFreeChart) this.chartsList.get(i);
         }
         return charts;
     }

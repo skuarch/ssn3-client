@@ -1,5 +1,6 @@
 package view.splits;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -191,7 +192,8 @@ public class Navigator extends FactoryTab {
             button = new JButton("");
             button.setPreferredSize(new Dimension(10, 10));
             button.setToolTipText("close this tab");
-
+            button.setBackground(Color.red);
+            
             button.addActionListener(new ActionListener() {
 
                 @Override

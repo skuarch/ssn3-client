@@ -7,7 +7,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import model.beans.SubPiece;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
@@ -26,6 +25,10 @@ import view.util.NumberFormatLabel;
 public class BarChart extends ApplicationFrame {
 
     private SubPiece subPiece = null;
+    private JFreeChart chart = null;
+    private CategoryPlot plot = null;
+    private NumberAxis yAxis = null;
+    private double upperBound;
     private CategoryDataset dataset = null;
     private String title = null;
     private String titlex = null;
@@ -35,7 +38,7 @@ public class BarChart extends ApplicationFrame {
     //==========================================================================
     public BarChart(SubPiece subPiece, CategoryDataset dataset, String title, String titlex, String titley, JList list) {
 
-        super(title);        
+        super(title);
         this.subPiece = subPiece;
         this.dataset = dataset;
         this.title = title;
@@ -59,14 +62,14 @@ public class BarChart extends ApplicationFrame {
     /**
      * Creates a sample chart.
      *
-     * @param dataset  the dataset.
+     * @param dataset the dataset.
      *
      * @return The chart.
      */
     public JFreeChart createChart(CategoryDataset dataset) {
 
         // create the chart...
-        JFreeChart chart = ChartFactory.createBarChart(
+        chart = ChartFactory.createBarChart(
                 title, // chart title
                 titlex, // domain axis label
                 titley, // range axis label
@@ -78,7 +81,7 @@ public class BarChart extends ApplicationFrame {
                 );
 
         // get a reference to the plot for further customisation...
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        plot = (CategoryPlot) chart.getPlot();
         plot.setDomainGridlinesVisible(true);
         plot.setNoDataMessage("no data");
 
@@ -110,15 +113,24 @@ public class BarChart extends ApplicationFrame {
         renderer.setSeriesPaint(1, gp1);
         renderer.setSeriesPaint(2, gp2);
 
-        //label format
-        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
-        double upperBound = yAxis.getRange().getUpperBound();
-        yAxis.setNumberFormatOverride(new NumberFormatLabel(upperBound));
-
+        changeLabels();
 
         return chart;
 
-    } // end chart
+    } // end chart  
+
+    //==========================================================================
+    public void changeLabels() {
+        //label format
+        yAxis = (NumberAxis) plot.getRangeAxis();
+        upperBound = yAxis.getRange().getUpperBound();
+        yAxis.setNumberFormatOverride(new NumberFormatLabel(upperBound));
+    }
+
+    //==========================================================================
+    public JFreeChart getChart() {
+        return chart;
+    }
 
     //==========================================================================
     /**
@@ -128,19 +140,20 @@ public class BarChart extends ApplicationFrame {
      */
     public JPanel getPanel() {
 
-        JFreeChart chart = createChart(dataset);
+        //JFreeChart c = createChart(dataset); //descomentar si existe un error
+        createChart(dataset);
 
         // we need to fetch a reference to the renderer
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        //CategoryPlot p = (CategoryPlot) c.getPlot(); //descomentar si existe un error y quitar createCharPanel
         MyBarRenderer renderer = (MyBarRenderer) plot.getRenderer();
         MyDemoPanel demoPanel = new MyDemoPanel(renderer, list);
-        ChartPanel chartPanel = new ChartPanel(chart);
+        MyChartPanel chartPanel = new MyChartPanel(this);
         demoPanel.addChart(chart);
         chartPanel.addChartMouseListener(demoPanel);
         demoPanel.add(chartPanel);
 
         return demoPanel;
 
-    } // end getPanel
-
+    } // end getPanel  
+    
 } // end class

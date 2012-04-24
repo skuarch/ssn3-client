@@ -22,7 +22,8 @@ public class NumberFormatLabel extends DecimalFormat {
     private double constant;
 
     public NumberFormatLabel(double upperBound) {
-        updateUpperBound(upperBound);
+        this.upperBound = upperBound;
+        updateUpperBound(this.upperBound);
     }
 
     private void calculateLabel(double upperBound) {
@@ -42,7 +43,6 @@ public class NumberFormatLabel extends DecimalFormat {
     }
 
     public void updateUpperBound(double upperBound) {
-        this.upperBound = upperBound;
         calculateLabel(upperBound);
     }
 

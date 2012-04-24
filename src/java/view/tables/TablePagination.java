@@ -304,14 +304,26 @@ public class TablePagination extends FactoryPanel {
 
     //==========================================================================
     private void requestTotalResult() {
+
+        Object object = null;
+        SubPiece nsp = null;
+
         try {
-            SubPiece nsp = new PieceUtilities().createSubPieceFromSubPiece(subPiece);
+
+            nsp = new PieceUtilities().createSubPieceFromSubPiece(subPiece);
             nsp.setView(subPiece.getView() + " Rows");
-            totalResult = (Integer) new ControllerRequestObject().getObject(nsp);
+            object = new ControllerRequestObject().getObject(nsp);
+
+            if (object != null) {
+                totalResult = (Integer) object;
+            } else {
+                totalResult = 0;
+            }
+
         } catch (Exception e) {
             notifications.error("error requesting result", e);
         }
-    }
+    } // end requestTotalResult
 
     //==========================================================================
     private void createTable() {
@@ -351,9 +363,15 @@ public class TablePagination extends FactoryPanel {
     //==========================================================================
     private void requestData() {
 
+        Object object = null;
+
         try {
 
-            arrayList = (ArrayList) new ControllerDataTable().getData(subPiece);
+            object = new ControllerDataTable().getData(subPiece);
+
+            if (object != null) {
+                arrayList = (ArrayList) object;
+            }
 
         } catch (Exception e) {
             notifications.error("error creating table", e);

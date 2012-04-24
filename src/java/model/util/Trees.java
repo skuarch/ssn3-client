@@ -35,7 +35,7 @@ public class Trees {
             resultSetSubCategories = connectPool.executeQuery("select * from subcategories where subcategorie_active = 1 order by subcategorie_categorie_id,subcategorie_order  asc");
 
             while (resultSetCategories.next()) {
-                
+
                 categorie = new DefaultMutableTreeNode(resultSetCategories.getString("categorie_name"));
                 rootNode.add(categorie);
                 resultSetSubCategories.beforeFirst();
@@ -46,7 +46,7 @@ public class Trees {
                         categorie.add(new DefaultMutableTreeNode(resultSetSubCategories.getString("subcategorie_name")));
                     }
                 } // while subcategories
-                
+
             } // while categories            
 
         } catch (Exception e) {
@@ -85,13 +85,13 @@ public class Trees {
             threadCollectors = new Thread[collectors.length];
             arrayNodes = new ArrayList<DefaultMutableTreeNode>();
 
-            //run each thread and save
+            // run each thread and save
             for (int i = 0; i < collectors.length; i++) {
                 threadCollectors[i] = new ThreadNode(collectors[i].getHost(), arrayNodes);
                 threadCollectors[i].start();
             }
 
-            //check if all the threads ended
+            // check if all the threads ended
             for (int i = 0; i < threadCollectors.length; i++) {
                 if (threadCollectors[i].isAlive()) {
                     threadCollectors[i].join();
@@ -100,7 +100,7 @@ public class Trees {
                 }
             }
 
-            //change node wait to servers
+            // change node wait to servers
             rootNode = new DefaultMutableTreeNode("servers");
             model = new DefaultTreeModel(rootNode);
 

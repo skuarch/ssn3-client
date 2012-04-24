@@ -25,8 +25,8 @@ public class RequestObject {
         JMSProccessor jmsp = null;
         Object object = null;
 
-        try {
-
+        try {            
+            
             time = new ControllerConfiguration().getInitialConfiguration().getJmsTimeWaitMessage();
             jmsp = new JMSProccessor();
             object = jmsp.sendReceive(subPiece.getView(), subPiece.getCollector(), "srs", time, new PieceUtilities().subPieceToHashMap(subPiece));

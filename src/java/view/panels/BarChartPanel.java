@@ -186,7 +186,6 @@ public class BarChartPanel extends FactoryPanel {
 
             view = subPiece.getView();
 
-
             if (view.equalsIgnoreCase("Network Protocols")) {
                 newSubPiece.setNetworkProtocols(getDataList());
                 newSubPiece.setTypeProtocol(view);
@@ -211,6 +210,18 @@ public class BarChartPanel extends FactoryPanel {
                 newSubPiece.setWebServerHosts(getDataList());
             } else if (view.equalsIgnoreCase("Type of Service")) {
                 newSubPiece.setTypeService(getDataList());
+            } else if (view.equalsIgnoreCase("Top Ports")) {
+                newSubPiece.setPortNumber(getDataList());
+            } else if (view.equalsIgnoreCase("TCP Ports")) {
+                newSubPiece.setPortNumber(getDataList());
+            } else if (view.equalsIgnoreCase("UDP Ports")) {
+                newSubPiece.setPortNumber(getDataList());
+            } else if (view.equalsIgnoreCase("Hostname Talkers Bytes")) {
+                newSubPiece.setHostname(getDataList());
+            } else if (view.equalsIgnoreCase("Hostname Talkers Destination Bytes")) {
+                newSubPiece.setHostname(getDataList());
+            } else if (view.equalsIgnoreCase("Hostname Talkers Sources Bytes")) {
+                newSubPiece.setHostname(getDataList());
             }
 
         } catch (Exception e) {
@@ -438,10 +449,20 @@ public class BarChartPanel extends FactoryPanel {
 
     //==========================================================================
     private void requestTotalResult() {
+
+        SubPiece nsp = null;
+        Object object = null;
+
         try {
-            SubPiece nsp = new PieceUtilities().createSubPieceFromSubPiece(subPiece);
+            nsp = new PieceUtilities().createSubPieceFromSubPiece(subPiece);
             nsp.setView(subPiece.getView() + " Rows");
-            totalResult = (Integer) new ControllerRequestObject().getObject(nsp);
+
+            object = new ControllerRequestObject().getObject(nsp);
+
+            if (object != null) {
+                totalResult = (Integer) object;
+            }
+
         } catch (Exception e) {
             notifications.error("error requesting result", e);
         }
@@ -450,9 +471,15 @@ public class BarChartPanel extends FactoryPanel {
     //==========================================================================
     private void requestDataset() {
 
+        Object object = null;
+
         try {
 
-            dataset = (CategoryDataset) new ControllerRequestObject().getObject(subPiece);
+            object = new ControllerRequestObject().getObject(subPiece);
+
+            if (object != null) {
+                dataset = (CategoryDataset) object;
+            }
 
         } catch (Exception e) {
             notifications.error("error", e);
@@ -536,24 +563,5 @@ public class BarChartPanel extends FactoryPanel {
     public Object getData() {
         return barChart.createChart(dataset);
     } // end getData
-
-    //==========================================================================
-    @Override
-    public void updateUI() {
-
-        new Thread(new Runnable() {
-
-            public void run() {
-                javax.swing.SwingUtilities.invokeLater(new Runnable() {
-
-                    public void run() {
-                        BarChartPanel.super.updateUI();
-                    }
-                });
-            }
-        }).start();
-
-
-    } // end updateUI
 } // end class
 

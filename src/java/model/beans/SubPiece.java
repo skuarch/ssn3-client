@@ -29,6 +29,7 @@ public class SubPiece implements Piece {
     private String websites = "not applicable";
     private boolean isTable = false;
     private String portNumber = "not applicable";
+    private String hostname = "not applicable";
 
     //==========================================================================
     @Override
@@ -305,4 +306,17 @@ public class SubPiece implements Piece {
     public String getPortNumber() {
         return this.portNumber;
     }
+
+    //==========================================================================
+    @Override
+    public String getHostname() {
+        return hostname;
+    }
+
+    //==========================================================================
+    @Override
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
+    }
+    
 } // end class
