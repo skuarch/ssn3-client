@@ -30,7 +30,7 @@ public class JMSProccessor extends JMS {
     } // end JMSProcessor
 
     //==========================================================================    
-    private void send(String select, String sendTo, String tagTo, String type, String key, Object object) throws Exception {
+    public void send(String select, String sendTo, String tagTo, String type, String key, Object object) throws Exception {
 
         if (select == null || select.length() < 1) {
             throw new NullPointerException("select is null or empty");
@@ -108,7 +108,7 @@ public class JMSProccessor extends JMS {
             end = System.currentTimeMillis() + time;
 
             while (end > System.currentTimeMillis()) {
-
+                
                 message = topicSubscriber.receive(time);
 
                 if (message != null) {
@@ -181,7 +181,7 @@ public class JMSProccessor extends JMS {
         } finally {
             shutdownConnection();
         }
-
+        
         return data;
     } // end sendReceive
 } // end class
