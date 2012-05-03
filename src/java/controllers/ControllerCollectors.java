@@ -19,7 +19,7 @@ public class ControllerCollectors {
     }
 
     //==========================================================================
-    public String[] getActivesCollectorsArray() throws Exception {
+    public Collectors[] getActivesCollectorsArray() throws Exception {
         return new ModelCollectors().getActivesCollectorsArray();
     }
 } // end class

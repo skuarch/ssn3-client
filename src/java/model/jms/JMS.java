@@ -15,8 +15,7 @@ public class JMS {
     private TopicSession topicSession = null;
     private TopicConnection topicConnection = null;
     private MessageProducer messageProducer = null;
-    private TopicSubscriber topicSubscriber = null;
-    private ObjectMessage objectMessage = null;
+    private TopicSubscriber topicSubscriber = null;    
 
     //==========================================================================
     public JMS() throws Exception {
@@ -38,16 +37,14 @@ public class JMS {
             topicSession = topicConnection.createTopicSession(false, TopicSession.AUTO_ACKNOWLEDGE);
 
             //for send
-            messageProducer = topicSession.createProducer(topic);
-            objectMessage = topicSession.createObjectMessage();
+            messageProducer = topicSession.createProducer(topic);            
 
             //for receive
             topicSubscriber = topicSession.createSubscriber(topic);
 
         } catch (NullPointerException npe) {
             System.out.println("imposible create connection JMS.initComponents() " + npe);
-            npe.printStackTrace();
-            return;
+            npe.printStackTrace();            
         } catch (Exception e) {
             throw e;
         }
@@ -57,11 +54,6 @@ public class JMS {
     //==========================================================================
     public MessageProducer getMessageProducer() {
         return messageProducer;
-    }
-
-    //==========================================================================
-    public ObjectMessage getObjectMessage() {
-        return objectMessage;
     }
 
     //==========================================================================
@@ -87,7 +79,7 @@ public class JMS {
     //==========================================================================
     public TopicSubscriber getTopicSubscriber() {
         return topicSubscriber;
-    }
+    }   
 
     //=========================================================================
     public void shutdownConnection() {

@@ -102,5 +102,20 @@ public interface Piece {
     public void setHostname(String hostname);
     public String getHostname();
     
+    //thresholdbandwidth
+    public void setThresholdBandwidth(String thresholdBandwidth);
+    public String getThresholdBandwidth();
+    
+    //thresholdSnapLen
+    public void setThresholdSnapLen(String thresholdSnapLen);
+    public String getThresholdSnapLen();
+    
+    //thresholdMeasurement
+    public void setThresholdMeasurement(String thresholdMeasurement);
+    public String getThresholdMeasurement();
+    
+    //thresholdIsActive
+    public void isThresholdActive(boolean flag);
+    public boolean isThresholdActive();
     
 } // end interface

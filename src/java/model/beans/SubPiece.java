@@ -30,6 +30,10 @@ public class SubPiece implements Piece {
     private boolean isTable = false;
     private String portNumber = "not applicable";
     private String hostname = "not applicable";
+    private String thresholdBandwidth = "0";
+    private String thresholdSnapLen = "0";
+    private String thresholdMeasurement = "mbps";
+    private boolean isThresholdActive = false;
 
     //==========================================================================
     @Override
@@ -317,6 +321,54 @@ public class SubPiece implements Piece {
     @Override
     public void setHostname(String hostname) {
         this.hostname = hostname;
+    }
+
+    //==========================================================================
+    @Override
+    public String getThresholdBandwidth() {
+        return thresholdBandwidth;
+    }
+
+    //==========================================================================
+    @Override
+    public void setThresholdBandwidth(String thresholdBandwidth) {
+        this.thresholdBandwidth = thresholdBandwidth;
+    }
+
+    //==========================================================================
+    @Override
+    public String getThresholdMeasurement() {
+        return thresholdMeasurement;
+    }
+
+    //==========================================================================
+    @Override
+    public void setThresholdMeasurement(String thresholdMeasurement) {
+        this.thresholdMeasurement = thresholdMeasurement;
+    }
+
+    //==========================================================================
+    @Override
+    public String getThresholdSnapLen() {
+        return thresholdSnapLen;
+    }
+
+    //==========================================================================
+    @Override
+    public void setThresholdSnapLen(String thresholdSnapLen) {
+        this.thresholdSnapLen = thresholdSnapLen;
+    }
+
+    //==========================================================================
+    @Override
+    public void isThresholdActive(boolean isThresholdActive) {
+        this.isThresholdActive = isThresholdActive;
+    }
+    
+    //==========================================================================
+    @Override
+    public boolean isThresholdActive(){
+        return this.isThresholdActive;
     }
     
 } // end class

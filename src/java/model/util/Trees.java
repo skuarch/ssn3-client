@@ -1,10 +1,13 @@
 package model.util;
 
+import controllers.ControllerConfiguration;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import model.beans.Collectors;
+import model.beans.SubPiece;
+import model.jms.JMSProccessor;
 import model.net.ConnectPool;
 
 /**
@@ -118,4 +121,117 @@ public class Trees {
         return model;
 
     } // end getModel
+
+    //==========================================================================
+    public DefaultMutableTreeNode getRootNodeCollectorThreshold() throws Exception {
+
+        Collectors[] collectors = null;
+
+        DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("wait...");
+        DefaultMutableTreeNode node = null;
+
+        try {
+
+            collectors = new ModelThresholdsCaptures().getCollectorsThresholdsCaptures();
+
+            // change node wait to collectors
+            rootNode = new DefaultMutableTreeNode("collectors");
+
+            if (collectors.length < 1) {
+                rootNode = new DefaultMutableTreeNode("no collectors");
+                return rootNode;
+            }
+
+            //put nodes into the model
+            for (int i = 0; i < collectors.length; i++) {
+                node = new DefaultMutableTreeNode(collectors[i].getHost());
+                rootNode.add(node);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        }
+
+        return rootNode;
+
+    } // end getCollectorsThresholds   
+
+    //==========================================================================
+    public DefaultMutableTreeNode getRootNodeDaysThreshold(String collector) throws Exception {
+
+        String[] days = null;
+        SubPiece subPiece = new SubPiece();
+        DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("wait...");
+        DefaultMutableTreeNode node = null;
+        int time = 0;
+
+        try {
+
+            time = new ControllerConfiguration().getInitialConfiguration().getJmsTimeWaitConnectivity();
+            subPiece.setView("threshold day");
+            days = (String[]) new JMSProccessor().sendReceive("threshold day", collector, "srs", time, new PieceUtilities().subPieceToHashMap(subPiece));
+
+
+            // change node wait to collectors
+            rootNode = new DefaultMutableTreeNode("days");
+
+            if (days == null || days.length < 1) {
+                rootNode = new DefaultMutableTreeNode("no days");
+                return rootNode;
+            }
+
+            //put nodes into the model
+            for (int i = 0; i < days.length; i++) {
+                node = new DefaultMutableTreeNode(days[i]);
+                rootNode.add(node);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        }
+
+        return rootNode;
+
+    } // end getCollectorsThresholds   
+    
+    
+    //==========================================================================
+    public DefaultMutableTreeNode getRootNodeCapturesThreshold(String collector, String day) throws Exception {
+
+        String[] captures = null;
+        SubPiece subPiece = new SubPiece();
+        DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("wait...");
+        DefaultMutableTreeNode node = null;
+        int time = 0;
+
+        try {
+
+            time = new ControllerConfiguration().getInitialConfiguration().getJmsTimeWaitConnectivity();
+            subPiece.setView("threshold captures");
+            //setear threshold days
+            captures = (String[]) new JMSProccessor().sendReceive("threshold captures", collector, "srs", time, new PieceUtilities().subPieceToHashMap(subPiece));
+
+
+            // change node wait to collectors
+            rootNode = new DefaultMutableTreeNode("captures");
+
+            if (captures == null || captures.length < 1) {
+                rootNode = new DefaultMutableTreeNode("no captures");
+                return rootNode;
+            }
+
+            //put nodes into the model
+            for (int i = 0; i < captures.length; i++) {
+                node = new DefaultMutableTreeNode(captures[i]);
+                rootNode.add(node);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        }
+
+        return rootNode;
+
+    } // end getCollectorsThresholds   
 } // end class
+

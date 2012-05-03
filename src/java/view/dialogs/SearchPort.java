@@ -53,7 +53,7 @@ public class SearchPort extends javax.swing.JDialog {
 
                     String selected = jComboBoxCollectors.getSelectedItem().toString();
 
-                    if (selected == null || selected.equalsIgnoreCase("select a collector")) {
+                    if (selected == null || selected.equalsIgnoreCase("select a collector") || selected.equalsIgnoreCase("no collectors")) {
                         collector = null;
                         jComboBoxJobs.setEnabled(false);
                         return;
@@ -140,6 +140,7 @@ public class SearchPort extends javax.swing.JDialog {
         jComboBoxCollectors = new javax.swing.JComboBox();
         jComboBoxJobs = new javax.swing.JComboBox();
         jButtonSearch = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Search Port");
@@ -165,6 +166,13 @@ public class SearchPort extends javax.swing.JDialog {
             }
         });
 
+        jButton1.setText("close");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -185,6 +193,8 @@ public class SearchPort extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonSearch)))
                 .addContainerGap())
         );
@@ -204,7 +214,9 @@ public class SearchPort extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(jComboBoxJobs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonSearch)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonSearch)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -254,7 +266,14 @@ public class SearchPort extends javax.swing.JDialog {
             notifications.error("imposible to make the search", e);
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
+
+    //==========================================================================
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JComboBox jComboBoxCollectors;
     private javax.swing.JComboBox jComboBoxJobs;

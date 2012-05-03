@@ -20,6 +20,8 @@ public class MainFrame extends JFrame {
 
     private static MainFrame INSTANCE = null;
     private Notifications notifications = null;
+    private ThresholdsCaptures thresholdsCaptures = null;
+    private About about = null;
 
     //==========================================================================
     /**
@@ -68,9 +70,15 @@ public class MainFrame extends JFrame {
                     SwingUtilities.invokeLater(new Runnable() {
 
                         public void run() {
-                            jTabbedPaneView.add(TreeViews.getInstance());
-                            jTabbedPaneCollectors.add(TreeCollectors.getInstance());
-                            jSplitPaneMain.setRightComponent(Navigator.getInstance());
+
+                            try {
+                                Thread.sleep(15);
+                                jTabbedPaneView.add(TreeViews.getInstance());
+                                jTabbedPaneCollectors.add(TreeCollectors.getInstance());
+                                jSplitPaneMain.setRightComponent(Navigator.getInstance());
+                            } catch (Exception e) {
+                                new Notifications().error("error loading interface", e);
+                            }
                         }
                     });
                 }
@@ -117,10 +125,10 @@ public class MainFrame extends JFrame {
     //==========================================================================
     private void createPdf() {
 
-        if(Navigator.getInstance().getTabCount() <= 0){
+        if (Navigator.getInstance().getTabCount() <= 0) {
             return;
         }
-        
+
         new Thread(new Runnable() {
 
             public void run() {
@@ -161,13 +169,18 @@ public class MainFrame extends JFrame {
         jMenuItemExit = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItemEventViewer = new javax.swing.JMenuItem();
-        jMenuItemConfiguration = new javax.swing.JMenuItem();
         jMenuSearch = new javax.swing.JMenu();
         jMenuItemSubnet = new javax.swing.JMenuItem();
         jMenuItemIP = new javax.swing.JMenuItem();
         jMenuItemPort = new javax.swing.JMenuItem();
         jMenuItemCloseAll = new javax.swing.JMenuItem();
         jMenuItemReport = new javax.swing.JMenuItem();
+        jMenuItemThresholdsCaptures = new javax.swing.JMenuItem();
+        jMenuSettings = new javax.swing.JMenu();
+        jMenuItemConfiguration = new javax.swing.JMenuItem();
+        jMenuItemConfigurationThresholds = new javax.swing.JMenuItem();
+        jMenuHelp = new javax.swing.JMenu();
+        jMenuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -217,14 +230,6 @@ public class MainFrame extends JFrame {
         });
         jMenu3.add(jMenuItemEventViewer);
 
-        jMenuItemConfiguration.setText("configuration");
-        jMenuItemConfiguration.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemConfigurationActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItemConfiguration);
-
         jMenuSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/search.png"))); // NOI18N
         jMenuSearch.setText("search");
 
@@ -272,7 +277,47 @@ public class MainFrame extends JFrame {
         });
         jMenu3.add(jMenuItemReport);
 
+        jMenuItemThresholdsCaptures.setText("thresholds captures");
+        jMenuItemThresholdsCaptures.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemThresholdsCapturesActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemThresholdsCaptures);
+
         jMenuBar1.add(jMenu3);
+
+        jMenuSettings.setText("Settings");
+
+        jMenuItemConfiguration.setText("configuration");
+        jMenuItemConfiguration.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConfigurationActionPerformed(evt);
+            }
+        });
+        jMenuSettings.add(jMenuItemConfiguration);
+
+        jMenuItemConfigurationThresholds.setText("configuration thresholds captures");
+        jMenuItemConfigurationThresholds.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConfigurationThresholdsActionPerformed(evt);
+            }
+        });
+        jMenuSettings.add(jMenuItemConfigurationThresholds);
+
+        jMenuBar1.add(jMenuSettings);
+
+        jMenuHelp.setText("Help");
+
+        jMenuItemAbout.setText("about");
+        jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAboutActionPerformed(evt);
+            }
+        });
+        jMenuHelp.add(jMenuItemAbout);
+
+        jMenuBar1.add(jMenuHelp);
 
         setJMenuBar(jMenuBar1);
 
@@ -344,19 +389,64 @@ public class MainFrame extends JFrame {
         new SearchPort(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItemPortActionPerformed
 
+    //==========================================================================
+    private void jMenuItemConfigurationThresholdsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConfigurationThresholdsActionPerformed
+        new ConfigurationThresholds(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItemConfigurationThresholdsActionPerformed
+
+    //==========================================================================
+    private void jMenuItemThresholdsCapturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemThresholdsCapturesActionPerformed
+
+        new Thread(new Runnable() {
+
+            public void run() {
+                thresholdsCaptures = ThresholdsCaptures.getInstance();
+
+                if (thresholdsCaptures.isVisible()) {
+                    thresholdsCaptures.toFront();
+                } else {
+                    thresholdsCaptures.setVisible(true);
+                }
+            }
+        }).start();
+
+    }//GEN-LAST:event_jMenuItemThresholdsCapturesActionPerformed
+
+    //==========================================================================
+    private void jMenuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAboutActionPerformed
+
+        new Thread(new Runnable() {
+
+            public void run() {
+                about = new About(INSTANCE, true);
+
+                if (about.isVisible()) {
+                    about.toFront();
+                } else {
+                    about.setVisible(true);
+                }
+            }
+        }).start();
+
+    }//GEN-LAST:event_jMenuItemAboutActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuHelp;
+    private javax.swing.JMenuItem jMenuItemAbout;
     private javax.swing.JMenuItem jMenuItemCloseAll;
     private javax.swing.JMenuItem jMenuItemConfiguration;
+    private javax.swing.JMenuItem jMenuItemConfigurationThresholds;
     private javax.swing.JMenuItem jMenuItemEventViewer;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemIP;
     private javax.swing.JMenuItem jMenuItemPort;
     private javax.swing.JMenuItem jMenuItemReport;
     private javax.swing.JMenuItem jMenuItemSubnet;
+    private javax.swing.JMenuItem jMenuItemThresholdsCaptures;
     private javax.swing.JMenu jMenuSearch;
+    private javax.swing.JMenu jMenuSettings;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPaneMain;

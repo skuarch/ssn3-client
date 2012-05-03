@@ -37,7 +37,7 @@ public class ModelCollectors {
     } // end getCollectors
 
     //==========================================================================
-    public Collectors[] getActivesCollectors() {
+    public synchronized Collectors[] getActivesCollectors() {
 
         Collectors[] collectors = null;
         List<Collectors> activeCollectors = null;
@@ -48,7 +48,7 @@ public class ModelCollectors {
             activeCollectors = new ArrayList<Collectors>();
 
             for (int i = 0; i < collectors.length; i++) {
-                if (collectors[i].getIsActive() == 1) {
+                if (collectors[i].getIsActive() == 1) {                    
                     activeCollectors.add(collectors[i]);
                 }
             }
@@ -62,29 +62,35 @@ public class ModelCollectors {
     } // end getActivesCollectors
 
     //==========================================================================
-    public String[] getActivesCollectorsArray() {
+    public Collectors[] getActivesCollectorsArray() {
 
         Collectors[] collectors = null;
-        String[] collectorsArray = null;
+        Collectors[] activesCollectors = null;        
+        List<Collectors> collectorsList = new ArrayList<Collectors>();
 
         try {
 
-            collectors = getCollectors();
-            collectorsArray = new String[collectors.length];
+            collectors = getCollectors();           
 
             for (int i = 0; i < collectors.length; i++) {
                 if (collectors[i].getIsActive() == 1) {
-                    collectorsArray[i] = collectors[i].getHost();
+                    collectorsList.add(collectors[i]);
                 }
+            }
+
+            activesCollectors = new Collectors[collectorsList.size()];
+            
+            for(int i = 0; i < collectorsList.size(); i++){
+                activesCollectors[i] = collectorsList.get(i);
             }
 
         } catch (Exception e) {
             notifications.error("error getting actives collectors", e);
         }
 
-        return collectorsArray;
+        return activesCollectors;
 
-    }
+    } // end getActivesCollectorsArray
 
     //==========================================================================
     private Collectors[] doCast(List list) {
@@ -96,7 +102,7 @@ public class ModelCollectors {
         Collectors[] collectors = null;
 
         try {
-
+            
             collectors = new Collectors[list.size()];
 
             for (int i = 0; i < list.size(); i++) {

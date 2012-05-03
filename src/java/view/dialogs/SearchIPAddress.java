@@ -58,7 +58,7 @@ public class SearchIPAddress extends javax.swing.JDialog {
 
                     String selected = jComboBoxCollectors.getSelectedItem().toString();
 
-                    if (selected == null || selected.equalsIgnoreCase("select a collector")) {
+                    if (selected == null || selected.equalsIgnoreCase("select a collector") || selected.equalsIgnoreCase("no collectors")) {
                         collector = null;
                         jComboBoxJobs.setEnabled(false);
                         return;
@@ -196,6 +196,7 @@ public class SearchIPAddress extends javax.swing.JDialog {
         jTextFieldIP2 = new javax.swing.JTextField(3);
         jTextFieldIP3 = new javax.swing.JTextField(3);
         jTextFieldIP4 = new javax.swing.JTextField(3);
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Search IP Address");
@@ -229,6 +230,13 @@ public class SearchIPAddress extends javax.swing.JDialog {
 
         jTextFieldIP4.setColumns(3);
 
+        jButton1.setText("close");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -236,7 +244,10 @@ public class SearchIPAddress extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonSearch)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonSearch))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel2)
@@ -277,7 +288,9 @@ public class SearchIPAddress extends javax.swing.JDialog {
                     .addComponent(jLabel4)
                     .addComponent(jComboBoxJobs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonSearch)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonSearch)
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -316,8 +329,14 @@ public class SearchIPAddress extends javax.swing.JDialog {
             notifications.error("please select a IP address, collector and job", new Exception());
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
+
+    //==========================================================================
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
     //===========================================================================
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JComboBox jComboBoxCollectors;
     private javax.swing.JComboBox jComboBoxJobs;

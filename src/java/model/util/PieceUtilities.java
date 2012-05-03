@@ -54,6 +54,10 @@ public class PieceUtilities {
             newSubPiece.isTable(subPiece.isTable());
             newSubPiece.setPortNumber(subPiece.getPortNumber());
             newSubPiece.setHostname(subPiece.getHostname());
+            newSubPiece.setThresholdBandwidth(subPiece.getThresholdBandwidth());
+            newSubPiece.setThresholdMeasurement(subPiece.getThresholdMeasurement());
+            newSubPiece.setThresholdSnapLen(subPiece.getThresholdSnapLen());
+            newSubPiece.isThresholdActive(subPiece.isThresholdActive());
 
         } catch (Exception e) {
             notifications.error("error creating sub-piece", e);
@@ -145,6 +149,10 @@ public class PieceUtilities {
             hashMap.put("is table", subPiece.isTable());
             hashMap.put("port number", subPiece.getPortNumber());
             hashMap.put("hostname", subPiece.getHostname());
+            hashMap.put("threshold bandwidth", subPiece.getThresholdBandwidth());
+            hashMap.put("threshold measurement", subPiece.getThresholdMeasurement());
+            hashMap.put("threshold snapLen", subPiece.getThresholdSnapLen());
+            hashMap.put("threshold is active", subPiece.isThresholdActive());
 
         } catch (Exception e) {
             notifications.error("error creating hashmap", e);

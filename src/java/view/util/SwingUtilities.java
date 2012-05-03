@@ -4,6 +4,7 @@ import controllers.ControllerCollectors;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.*;
+import model.beans.Collectors;
 import view.notifications.Notifications;
 
 /**
@@ -203,28 +204,33 @@ public class SwingUtilities {
     public DefaultComboBoxModel getDefaultComboBoxModelCollectors() {
 
         DefaultComboBoxModel defaultComboBoxModel = null;
-        String[] collectors = null;
-        String[] servers = null;
+        String[] collectors = new String[]{"no collectors"};
+        Collectors[] servers = null;        
 
         try {
 
             servers = new ControllerCollectors().getActivesCollectorsArray();
-            collectors = new String[servers.length + 1];
-            collectors[0] = "select a collector";
 
             if (servers.length > 0) {
-                for (int i = 1; i < collectors.length; i++) {                    
-                    collectors[i] = servers[i - 1];
-                }
-            }
 
-            defaultComboBoxModel = new DefaultComboBoxModel(collectors);
+                collectors = new String[servers.length + 1];
+                collectors[0] = "select a collector";
+
+                for (int i = 1; i < collectors.length; i++) {
+                    collectors[i] = servers[i - 1].getHost();
+                }                
+
+            } else {
+
+                collectors = new String[]{"no collectors"};
+
+            }
 
         } catch (Exception e) {
             new Notifications().error("error creation combobox collectors", e);
+        } finally {
+            return defaultComboBoxModel = new DefaultComboBoxModel(collectors);
         }
-
-        return defaultComboBoxModel;
 
     } // end getComboBoxServers
 
