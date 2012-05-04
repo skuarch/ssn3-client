@@ -19,8 +19,7 @@ import view.trees.TreeViews;
 public class MainFrame extends JFrame {
 
     private static MainFrame INSTANCE = null;
-    private Notifications notifications = null;
-    private ThresholdsCaptures thresholdsCaptures = null;
+    private Notifications notifications = null;    
     private About about = null;
 
     //==========================================================================
@@ -175,10 +174,8 @@ public class MainFrame extends JFrame {
         jMenuItemPort = new javax.swing.JMenuItem();
         jMenuItemCloseAll = new javax.swing.JMenuItem();
         jMenuItemReport = new javax.swing.JMenuItem();
-        jMenuItemThresholdsCaptures = new javax.swing.JMenuItem();
         jMenuSettings = new javax.swing.JMenu();
         jMenuItemConfiguration = new javax.swing.JMenuItem();
-        jMenuItemConfigurationThresholds = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
         jMenuItemAbout = new javax.swing.JMenuItem();
 
@@ -277,14 +274,6 @@ public class MainFrame extends JFrame {
         });
         jMenu3.add(jMenuItemReport);
 
-        jMenuItemThresholdsCaptures.setText("thresholds captures");
-        jMenuItemThresholdsCaptures.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemThresholdsCapturesActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItemThresholdsCaptures);
-
         jMenuBar1.add(jMenu3);
 
         jMenuSettings.setText("Settings");
@@ -296,14 +285,6 @@ public class MainFrame extends JFrame {
             }
         });
         jMenuSettings.add(jMenuItemConfiguration);
-
-        jMenuItemConfigurationThresholds.setText("configuration thresholds captures");
-        jMenuItemConfigurationThresholds.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemConfigurationThresholdsActionPerformed(evt);
-            }
-        });
-        jMenuSettings.add(jMenuItemConfigurationThresholds);
 
         jMenuBar1.add(jMenuSettings);
 
@@ -390,29 +371,6 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event_jMenuItemPortActionPerformed
 
     //==========================================================================
-    private void jMenuItemConfigurationThresholdsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConfigurationThresholdsActionPerformed
-        new ConfigurationThresholds(this, true).setVisible(true);
-    }//GEN-LAST:event_jMenuItemConfigurationThresholdsActionPerformed
-
-    //==========================================================================
-    private void jMenuItemThresholdsCapturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemThresholdsCapturesActionPerformed
-
-        new Thread(new Runnable() {
-
-            public void run() {
-                thresholdsCaptures = ThresholdsCaptures.getInstance();
-
-                if (thresholdsCaptures.isVisible()) {
-                    thresholdsCaptures.toFront();
-                } else {
-                    thresholdsCaptures.setVisible(true);
-                }
-            }
-        }).start();
-
-    }//GEN-LAST:event_jMenuItemThresholdsCapturesActionPerformed
-
-    //==========================================================================
     private void jMenuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAboutActionPerformed
 
         new Thread(new Runnable() {
@@ -437,14 +395,12 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem jMenuItemAbout;
     private javax.swing.JMenuItem jMenuItemCloseAll;
     private javax.swing.JMenuItem jMenuItemConfiguration;
-    private javax.swing.JMenuItem jMenuItemConfigurationThresholds;
     private javax.swing.JMenuItem jMenuItemEventViewer;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemIP;
     private javax.swing.JMenuItem jMenuItemPort;
     private javax.swing.JMenuItem jMenuItemReport;
     private javax.swing.JMenuItem jMenuItemSubnet;
-    private javax.swing.JMenuItem jMenuItemThresholdsCaptures;
     private javax.swing.JMenu jMenuSearch;
     private javax.swing.JMenu jMenuSettings;
     private javax.swing.JPanel jPanel1;

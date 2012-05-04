@@ -24,21 +24,5 @@ public class ControllerTrees {
     public DefaultTreeModel getCollectorModel() throws Exception{
         return new Trees().getCollectorsModel();
     }
-    
-    //==========================================================================
-    public DefaultMutableTreeNode getRootNodeCollectorThreshold() throws Exception{
-        return new Trees().getRootNodeCollectorThreshold();
-    }
-    
-    //==========================================================================
-    public DefaultMutableTreeNode getRootNodeDaysThreshold(String collector) throws Exception{
-        return new Trees().getRootNodeDaysThreshold(collector);
-    }
-    
-    
-    //==========================================================================
-    public DefaultMutableTreeNode getRootNodeCapturesThreshold(String collector, String day) throws Exception{
-        return new Trees().getRootNodeCapturesThreshold(collector,day);
-    }
 
 } // end class

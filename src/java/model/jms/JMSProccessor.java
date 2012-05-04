@@ -106,8 +106,7 @@ public class JMSProccessor extends JMS {
                 if (message != null) {
 
                     // the message is for me ? 
-                    if (!validateMessage(message, key)) {
-                        System.out.println("the message is not for me " + message.getStringProperty("tagTo"));
+                    if (!validateMessage(message, key)) {                        
                         continue;
                     }
 
