@@ -4,6 +4,7 @@ import controllers.ControllerAuthentication;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import javax.swing.*;
+import model.dao.DAO;
 import view.frames.Login;
 import view.frames.MainFrame;
 import view.notifications.Notifications;
@@ -64,7 +65,8 @@ public class SplashScreen extends JFrame {
 
         try {
 
-            new ControllerAuthentication().login("", "");
+            new ControllerAuthentication().login("1", "1");
+            new DAO().hsql("from Users where user_name = '123'");
             MainFrame.getInstance();
             new Login().setVisible(true);
 
