@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1">
+        <file>
+            <url>src/java/model/util/Trees.java</url>
+            <line>129</line>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/home/skuarch/NetBeansProjects/ssn3-client/src/java/view/frames/E2E.java</file>
+        <file>file:/home/skuarch/NetBeansProjects/ssn3-client/src/java/view/panels/BarChartHorizontalPanel.java</file>
+        <file>file:/home/skuarch/NetBeansProjects/ssn3-client/src/java/view/panels/Footer.java</file>
+        <file>file:/home/skuarch/NetBeansProjects/ssn3-client/src/java/view/panels/EndtoEnd.java</file>
+    </open-files>
 </project-private>

@@ -78,7 +78,7 @@ public class JMSProccessor extends JMS {
 
     //=========================================================================
     private Object receive(String key, int time) throws Exception {
-
+        
         if (key == null || key.equalsIgnoreCase("")) {
             throw new NullPointerException("key is null or empty");
         }
@@ -121,7 +121,8 @@ public class JMSProccessor extends JMS {
 
             } // end while
 
-            //the time expired or message isn't from here
+            //the time expired or message is not for me
+            System.out.println("the time expired or message is not for me");
             return null;
 
         } catch (Exception e) {

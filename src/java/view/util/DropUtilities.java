@@ -81,6 +81,8 @@ public class DropUtilities {
                 flag = false;
             } else if (selected.equalsIgnoreCase("QoS")) {
                 flag = false;
+            }else if (selected.equalsIgnoreCase("Tools")) {
+                flag = false;
             } else {
                 flag = true;
             }

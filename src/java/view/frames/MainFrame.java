@@ -21,6 +21,7 @@ public class MainFrame extends JFrame {
     private static MainFrame INSTANCE = null;
     private Notifications notifications = null;    
     private About about = null;
+    private E2E e2e = null;
 
     //==========================================================================
     /**
@@ -29,6 +30,7 @@ public class MainFrame extends JFrame {
     private MainFrame() {
 
         notifications = new Notifications();
+        e2e = E2E.getInstance(this, true);
         initComponents();
         setLocationRelativeTo(getContentPane());
         onLoad();
@@ -174,6 +176,7 @@ public class MainFrame extends JFrame {
         jMenuItemPort = new javax.swing.JMenuItem();
         jMenuItemCloseAll = new javax.swing.JMenuItem();
         jMenuItemReport = new javax.swing.JMenuItem();
+        jMenuItemE2E = new javax.swing.JMenuItem();
         jMenuSettings = new javax.swing.JMenu();
         jMenuItemConfiguration = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
@@ -273,6 +276,15 @@ public class MainFrame extends JFrame {
             }
         });
         jMenu3.add(jMenuItemReport);
+
+        jMenuItemE2E.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/e2e.png"))); // NOI18N
+        jMenuItemE2E.setText("end to end");
+        jMenuItemE2E.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemE2EActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemE2E);
 
         jMenuBar1.add(jMenu3);
 
@@ -387,6 +399,19 @@ public class MainFrame extends JFrame {
         }).start();
 
     }//GEN-LAST:event_jMenuItemAboutActionPerformed
+
+    //==========================================================================
+    private void jMenuItemE2EActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemE2EActionPerformed
+    
+        e2e.setVisible(true);
+        e2e.requestFocus();
+        e2e.toFront();
+        e2e.setAlwaysOnTop(true);
+        e2e.requestFocus();
+        e2e.setAlwaysOnTop(false);
+        
+    }//GEN-LAST:event_jMenuItemE2EActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
@@ -395,6 +420,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem jMenuItemAbout;
     private javax.swing.JMenuItem jMenuItemCloseAll;
     private javax.swing.JMenuItem jMenuItemConfiguration;
+    private javax.swing.JMenuItem jMenuItemE2E;
     private javax.swing.JMenuItem jMenuItemEventViewer;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemIP;

@@ -24,5 +24,10 @@ public class ControllerTrees {
     public DefaultTreeModel getCollectorModel() throws Exception{
         return new Trees().getCollectorsModel();
     }
+    
+    //==========================================================================
+    public DefaultMutableTreeNode getRootNodeCollectors() throws Exception{
+        return new Trees().rootNodeCollectors();
+    }
 
 } // end class

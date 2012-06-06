@@ -25,10 +25,11 @@ public class Footer {
     private JButton detailsButton = null;
     private JButton tableButton = null;
     private SwingUtilities su = null;
+    private JList list = null;
 
     //==========================================================================
     public Footer(SubPiece subPiece) {
-        notifications = new Notifications();        
+        notifications = new Notifications();
         su = new SwingUtilities();
         this.exportExcelButton = su.getExportExcelButton();
         this.pdfButton = su.getPdfButton();
@@ -40,9 +41,10 @@ public class Footer {
     public JPanel getFooterBarChart(JList list) {
 
         if (list == null) {
-            notifications.error("error list is null", new NullPointerException("list is null"));            
+            notifications.error("error list is null", new NullPointerException("list is null"));
         }
 
+        this.list = list;
         JPanel panel = null;
         JPanel panelButtons = null;
         JScrollPane scrollPane = null;
@@ -52,15 +54,15 @@ public class Footer {
             panel = new JPanel();
             panel.setLayout(new BorderLayout());
             panel.setBorder(new MotifBorders.BevelBorder(true, Color.LIGHT_GRAY, Color.black));
-            
-            panelButtons = new JPanel();            
+
+            panelButtons = new JPanel();
             panelButtons.add(exportExcelButton);
             panelButtons.add(pdfButton);
             panelButtons.add(tableButton);
             panelButtons.add(detailsButton);
             panel.add(panelButtons, BorderLayout.EAST);
 
-            scrollPane = new JScrollPane(list);
+            scrollPane = new JScrollPane(this.list);
             panel.add(scrollPane, BorderLayout.CENTER);
 
         } catch (Exception e) {
@@ -69,36 +71,38 @@ public class Footer {
 
         return panel;
     } // end getFooterBarChart      
-    
+
     //==========================================================================
-    public JPanel getFooterLineChart(JList list){
-        
+    public JPanel getFooterLineChart(JList list) {
+
+        this.list = list;
         JPanel panel = null;
         JPanel panelButtons = null;
-        
+
         try {
+
             panel = new JPanel();
             panel.setLayout(new BorderLayout());
             panel.setBorder(new MotifBorders.BevelBorder(true, Color.LIGHT_GRAY, Color.black));
-            
-            panelButtons = new JPanel();            
+
+            panelButtons = new JPanel();
             panelButtons.add(exportExcelButton);
             panelButtons.add(pdfButton);
             panelButtons.add(tableButton);
             panelButtons.add(detailsButton);
             panel.add(panelButtons, BorderLayout.LINE_END);
-            panel.add(list, BorderLayout.CENTER);
-            
+            panel.add(this.list, BorderLayout.CENTER);
+
         } catch (Exception e) {
             notifications.error("imposible to create footer", e);
         }
-        
+
         return panel;
     }
-    
+
     //==========================================================================
-    public JPanel getFooterTable(){
-    
+    public JPanel getFooterTable() {
+
         JPanel panel = null;
         JPanel panelButtons = null;
 
@@ -106,19 +110,43 @@ public class Footer {
 
             panel = new JPanel();
             panel.setLayout(new BorderLayout());
-            panel.setBorder(new MotifBorders.BevelBorder(true, Color.LIGHT_GRAY, Color.black));            
-            panelButtons = new JPanel();            
+            panel.setBorder(new MotifBorders.BevelBorder(true, Color.LIGHT_GRAY, Color.black));
+            panelButtons = new JPanel();
             panelButtons.add(exportExcelButton);
             panelButtons.add(detailsButton);
-            panel.add(panelButtons, BorderLayout.EAST);            
+            panel.add(panelButtons, BorderLayout.EAST);
 
         } catch (Exception e) {
             notifications.error("imposible to create footer", e);
         }
-    
+
         return panel;
-    }    
+    }
+
+    //==========================================================================
+    public void setEnableList(boolean flag) {
+        if (list != null) {
+            this.list.setEnabled(flag);
+        }
+    }
     
+    //==========================================================================
+    public void showList(boolean flag){
+        if (list != null) {
+            this.list.setVisible(flag);
+        }
+    }
+
+    //==========================================================================
+    public void setEnableTableButton(boolean flag) {
+        this.tableButton.setEnabled(flag);
+    }
+
+    //==========================================================================
+    public void setEnableExportButton(boolean flag) {
+        this.exportExcelButton.setEnabled(flag);
+    }
+
     //==========================================================================
     public void addActionListenerExportExcel(ActionListener actionListener) {
         this.exportExcelButton.addActionListener(actionListener);
@@ -178,4 +206,4 @@ public class Footer {
     public void setTableButton(JButton tableButton) {
         this.tableButton = tableButton;
     }
-}
+} // end class

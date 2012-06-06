@@ -157,7 +157,9 @@ public class LineChartPanel extends FactoryPanel {
 
         String selected = null;
         SubPiece newSubPiece = null;
-
+        String[] e2eSelected = null;
+        SubPiece spE2E = null;        
+        
         try {
 
             selected = DropUtilities.getStringFromDrop(dtde);
@@ -178,10 +180,29 @@ public class LineChartPanel extends FactoryPanel {
             //set drillDown
             newSubPiece.setDrillDown(getName());
 
-            //adding new tab
-            FactoryPanel fp = (FactoryPanel) new HandlerPanels().getComponent(newSubPiece);
-            fp.setName(selected);
-            Navigator.getInstance().addTabInSubNavigator(fp);
+            //in end to end maybe the e2eSelected has a lot of data and each data is a new tab
+            if (selected.equalsIgnoreCase("End to End")) {                    
+                
+                e2eSelected = subPiece.getIpAddress().split(",");
+                for (String string : e2eSelected) {
+
+                    newSubPiece.setE2E(string);
+                    spE2E = new PieceUtilities().createSubPieceFromSubPiece(newSubPiece);
+                    spE2E.setE2E(string);
+                    FactoryPanel fp = (FactoryPanel) new HandlerPanels().getComponent(spE2E);
+                    fp.setName(selected);
+                    Navigator.getInstance().addTabInSubNavigator(fp);
+
+                }
+
+            } else {
+
+                //adding new tab
+                FactoryPanel fp = (FactoryPanel) new HandlerPanels().getComponent(newSubPiece);
+                fp.setName(selected);
+                Navigator.getInstance().addTabInSubNavigator(fp);
+
+            }
 
         } catch (Exception e) {
             notifications.error("error in drop", e);

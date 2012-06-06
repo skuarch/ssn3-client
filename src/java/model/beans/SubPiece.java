@@ -30,6 +30,7 @@ public class SubPiece implements Piece {
     private boolean isTable = false;
     private String portNumber = "not applicable";
     private String hostname = "not applicable";
+    private String e2e = "not applicable";
 
     //==========================================================================
     @Override
@@ -317,6 +318,18 @@ public class SubPiece implements Piece {
     @Override
     public void setHostname(String hostname) {
         this.hostname = hostname;
+    }    
+
+    //==========================================================================
+    @Override
+    public void setE2E(String e2e) {
+        this.e2e = e2e;
+    }
+
+    //==========================================================================
+    @Override
+    public String getE2E() {
+        return e2e;
     }
     
 } // end class

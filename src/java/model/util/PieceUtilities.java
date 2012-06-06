@@ -54,6 +54,7 @@ public class PieceUtilities {
             newSubPiece.isTable(subPiece.isTable());
             newSubPiece.setPortNumber(subPiece.getPortNumber());
             newSubPiece.setHostname(subPiece.getHostname());
+            newSubPiece.setE2E(subPiece.getE2E());
         } catch (Exception e) {
             notifications.error("error creating sub-piece", e);
         }
@@ -97,7 +98,8 @@ public class PieceUtilities {
                 {"websites", subPiece.getWebsites()},
                 {"is table", subPiece.isTable() + ""},
                 {"port number", subPiece.getPortNumber()},
-                {"hostname", subPiece.getHostname()}
+                {"hostname", subPiece.getHostname()},
+                {"e2e", subPiece.getE2E()}
             };
 
             areturn = array;
@@ -144,6 +146,7 @@ public class PieceUtilities {
             hashMap.put("is table", subPiece.isTable());
             hashMap.put("port number", subPiece.getPortNumber());
             hashMap.put("hostname", subPiece.getHostname());
+            hashMap.put("e2e", subPiece.getE2E());
             
         } catch (Exception e) {
             notifications.error("error creating hashmap", e);

@@ -118,5 +118,29 @@ public class Trees {
         return model;
 
     } // end getModel
+    
+    //==========================================================================
+    public DefaultMutableTreeNode rootNodeCollectors() throws Exception{
+    
+        DefaultMutableTreeNode rootNode = null;
+        Collectors[] collectors = null;
+        
+        try {
+         
+            rootNode = new DefaultMutableTreeNode("collectors");
+            collectors = new ModelCollectors().getActivesCollectors();
+            
+            for(int i = 0; i < collectors.length; i++){
+                rootNode.add(new DefaultMutableTreeNode(collectors[i].getHost()));
+            }
+            
+        } catch (Exception e) {
+            throw e;
+        }        
+        
+        return rootNode;
+        
+    } // end rootNodeCollectors    
+    
 } // end class
 

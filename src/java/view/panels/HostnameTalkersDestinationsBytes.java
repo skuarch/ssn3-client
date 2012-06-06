@@ -6,11 +6,11 @@ import model.beans.SubPiece;
  *
  * @author skuarch
  */
-public class HostnameTalkersDestinationBytes extends BarChartPanel {
+public class HostnameTalkersDestinationsBytes extends BarChartPanel {
 
     //==========================================================================
-    public HostnameTalkersDestinationBytes(SubPiece subPiece){
+    public HostnameTalkersDestinationsBytes(SubPiece subPiece){
         super(subPiece);
-    } // end HostnameTalkersDestinationBytes
+    } // end HostnameTalkersDestinationsBytes
 
 } 

@@ -29,6 +29,8 @@ public class Verifier {
             flag = false;
         } else if (view.equalsIgnoreCase("Ports")) {
             flag = false;
+        } else if (view.equalsIgnoreCase("Tools")) {
+            flag = false;
         } else {
             flag = true;
         }

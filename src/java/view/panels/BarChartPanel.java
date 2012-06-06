@@ -13,7 +13,7 @@ import javax.swing.ListModel;
 import model.beans.SubPiece;
 import model.util.PieceUtilities;
 import org.jfree.data.category.CategoryDataset;
-import view.charts.BarChart;
+import view.charts.BarChartSelected;
 import view.dialogs.ChooserFile;
 import view.dialogs.Detail;
 import view.dialogs.EventViewer;
@@ -33,7 +33,7 @@ import view.util.SwingUtilities;
 public class BarChartPanel extends FactoryPanel {
 
     private Notifications notifications = null;
-    private BarChart barChart = null;
+    private BarChartSelected barChart = null;
     private SubPiece subPiece = null;
     private JPanel panelFooter = null;
     private LoadingPanel loadingPanel = null;
@@ -126,7 +126,7 @@ public class BarChartPanel extends FactoryPanel {
 
     //==========================================================================
     private void createChart() {
-        barChart = new BarChart(subPiece, dataset, subPiece.getView(), "", "", list);
+        barChart = new BarChartSelected(subPiece, dataset, subPiece.getView(), "", "", list);
     } // end createChart
 
     //==========================================================================
@@ -145,11 +145,13 @@ public class BarChartPanel extends FactoryPanel {
 
         String selected = null;
         SubPiece newSubPiece = null;
+        String[] e2eSelected = null;
+        SubPiece spE2E = null;
 
         try {
 
             selected = DropUtilities.getStringFromDrop(dtde);
-
+            
             if (!DropUtilities.checkDrop(selected)) {
                 return;
             }
@@ -166,10 +168,29 @@ public class BarChartPanel extends FactoryPanel {
             //set drillDown
             newSubPiece.setDrillDown(getName());
 
-            //adding new tab
-            FactoryPanel fp = (FactoryPanel) new HandlerPanels().getComponent(newSubPiece);
-            fp.setName(selected);
-            Navigator.getInstance().addTabInSubNavigator(fp);
+            //in end to end maybe the e2eSelected has a lot of data and each data is a new tab
+            if (selected.equalsIgnoreCase("End to End")) {
+                
+                e2eSelected = getDataList().split(",");
+                for (String string : e2eSelected) {
+
+                    newSubPiece.setE2E(string);
+                    spE2E = new PieceUtilities().createSubPieceFromSubPiece(newSubPiece);
+                    spE2E.setE2E(string);
+                    FactoryPanel fp = (FactoryPanel) new HandlerPanels().getComponent(spE2E);
+                    fp.setName(selected);
+                    Navigator.getInstance().addTabInSubNavigator(fp);
+
+                }
+
+            } else {
+
+                //adding new tab
+                FactoryPanel fp = (FactoryPanel) new HandlerPanels().getComponent(newSubPiece);
+                fp.setName(selected);
+                Navigator.getInstance().addTabInSubNavigator(fp);
+
+            }
 
         } catch (Exception e) {
             notifications.error("error in drop", e);
@@ -185,7 +206,7 @@ public class BarChartPanel extends FactoryPanel {
         try {
 
             view = subPiece.getView();
-
+            
             if (view.equalsIgnoreCase("Network Protocols")) {
                 newSubPiece.setNetworkProtocols(getDataList());
                 newSubPiece.setTypeProtocol(view);
@@ -200,9 +221,9 @@ public class BarChartPanel extends FactoryPanel {
                 newSubPiece.setTypeProtocol(view);
             } else if (view.equalsIgnoreCase("IP Talkers Bytes")) {
                 newSubPiece.setIpAddress(getDataList());
-            } else if (view.equalsIgnoreCase("IP Sources Bytes")) {
+            } else if (view.equalsIgnoreCase("IP Talkers Sources Bytes")) {
                 newSubPiece.setIpAddress(getDataList());
-            } else if (view.equalsIgnoreCase("IP Destinations Bytes")) {
+            } else if (view.equalsIgnoreCase("IP Talkers Destinations Bytes")) {
                 newSubPiece.setIpAddress(getDataList());
             } else if (view.equalsIgnoreCase("Websites")) {
                 newSubPiece.setWebsites(getDataList());
@@ -222,6 +243,8 @@ public class BarChartPanel extends FactoryPanel {
                 newSubPiece.setHostname(getDataList());
             } else if (view.equalsIgnoreCase("Hostname Talkers Sources Bytes")) {
                 newSubPiece.setHostname(getDataList());
+            }else if (view.equalsIgnoreCase("End to End")) {                
+                newSubPiece.setE2E(getDataList());
             }
 
         } catch (Exception e) {

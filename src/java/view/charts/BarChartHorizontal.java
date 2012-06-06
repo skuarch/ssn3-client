@@ -1,5 +1,6 @@
 package view.charts;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
@@ -9,8 +10,6 @@ import model.beans.SubPiece;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -22,7 +21,7 @@ import view.util.NumberFormatLabel;
  *
  * @author skuarch
  */
-public class BarChart extends ApplicationFrame {
+public class BarChartHorizontal extends ApplicationFrame {
 
     private SubPiece subPiece = null;
     private JFreeChart chart = null;
@@ -36,7 +35,7 @@ public class BarChart extends ApplicationFrame {
     private JList list = null;
 
     //==========================================================================
-    public BarChart(SubPiece subPiece, CategoryDataset dataset, String title, String titlex, String titley, JList list) {
+    public BarChartHorizontal(CategoryDataset dataset, String title, String titlex, String titley, JList list) {
 
         super(title);
         this.subPiece = subPiece;
@@ -74,7 +73,7 @@ public class BarChart extends ApplicationFrame {
                 titlex, // domain axis label
                 titley, // range axis label
                 dataset, // data
-                PlotOrientation.VERTICAL, // orientation
+                PlotOrientation.HORIZONTAL, // orientation
                 false, // include legend
                 true, // tooltips?
                 false // URLs?
@@ -86,10 +85,10 @@ public class BarChart extends ApplicationFrame {
         plot.setNoDataMessage("no data");
 
         // set vertical labels
-        CategoryAxis domainAxis = plot.getDomainAxis();
+        /*CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setCategoryLabelPositions(
                 CategoryLabelPositions.createUpRotationLabelPositions(
-                Math.PI / 6.0));
+                Math.PI / 1.0));*/
 
         // set the range axis to display integers only...
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
@@ -97,7 +96,8 @@ public class BarChart extends ApplicationFrame {
 
         // disable bar outlines...
         MyBarRenderer renderer = new MyBarRenderer();
-        renderer.setDrawBarOutline(true);
+        renderer.setDrawBarOutline(true);        
+        renderer.setBaseOutlineStroke(new BasicStroke(1.5f));
         plot.setRenderer(renderer);
 
         ChartUtilities.applyCurrentTheme(chart);
@@ -113,7 +113,7 @@ public class BarChart extends ApplicationFrame {
         renderer.setSeriesPaint(1, gp1);
         renderer.setSeriesPaint(2, gp2);
 
-        changeLabels();
+        //changeLabels();
 
         return chart;
 
@@ -154,6 +154,12 @@ public class BarChart extends ApplicationFrame {
 
         return demoPanel;
 
-    } // end getPanel  
+    } // end getPanel 
     
-} // end class
+    //==========================================================================
+    @Override
+    public void setTitle(String title){        
+        chart.setTitle(title);
+    }
+    
+} 

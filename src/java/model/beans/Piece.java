@@ -100,6 +100,10 @@ public interface Piece {
     
     //hostname
     public void setHostname(String hostname);
-    public String getHostname();    
+    public String getHostname();  
+    
+    //e2e collector ip or web
+    public void setE2E(String e2e);
+    public String getE2E();
     
 } // end interface

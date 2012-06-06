@@ -10,19 +10,30 @@ import org.jfree.chart.ChartPanel;
  */
 public class MyChartPanel extends ChartPanel implements MouseListener {
 
-    private BarChart barChart = null;
+    private BarChartSelected barChartSelected = null;
+    private BarChartHorizontal barChartHorizontal = null;
 
     //==========================================================================
-    public MyChartPanel(BarChart barChart) {
-        super(barChart.getChart());
-        this.barChart = barChart;
+    public MyChartPanel(BarChartSelected BarChartSelected) {
+        super(BarChartSelected.getChart());
+        this.barChartSelected = BarChartSelected;
     } // end MyChartPanel
+
+    //==========================================================================
+    public MyChartPanel(BarChartHorizontal barChartHorizontal) {
+        super(barChartHorizontal.getChart());
+        this.barChartHorizontal = barChartHorizontal;
+    }
 
     //==========================================================================
     @Override
     public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        barChart.changeLabels();
+        
+        if(barChartSelected != null){
+            barChartSelected.changeLabels();
+        }
+        
     }
 } // end class
 
