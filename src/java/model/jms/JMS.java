@@ -83,9 +83,11 @@ public class JMS {
 
     //=========================================================================
     public void shutdownConnection() {
+        System.out.println("shutdown connection");
         JMSUtilities.closeTopicConnection(topicConnection);
         JMSUtilities.closeTopicSession(topicSession);
         JMSUtilities.closeTopicSubscriber(topicSubscriber);
+        JMSUtilities.closeMessageProducer(messageProducer);        
     } // end shutDownConnection
 } // end class
 

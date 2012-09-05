@@ -4,12 +4,15 @@ import controllers.ControllerTrees;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import model.beans.Collectors;
 import model.beans.SubPiece;
+import model.dao.DAO;
 import view.dialogs.EventViewer;
 import view.notifications.Notifications;
 import view.panels.BarChartHorizontalPanel;
@@ -118,23 +121,22 @@ public class E2E extends JFrame {
 
     } // end validationAdd
 
-    
-    
     //==========================================================================
     private void execute() {
 
         new Thread(new Runnable() {
 
             public void run() {
-                
+
                 BarChartHorizontalPanel barChartHorizontalPanel = null;
                 jButtonExecute.setEnabled(false);
                 jButtonExecute.setText("loading");
                 String collectorSource = TreeUtilities.getSelect(jTreeSource.getSelectionPath());
-                String collectorDestination = TreeUtilities.getSelect(jTreeDestination.getSelectionPath());                
-                SubPiece sp1 = new SubPiece();  
+                String collectorDestination = TreeUtilities.getSelect(jTreeDestination.getSelectionPath());
+                SubPiece sp1 = new SubPiece();
                 JPanel tabTitle = null;
-                
+                ArrayList<Collectors> al = null;
+
                 try {
 
                     if (collectorSource == null || collectorSource.length() < 1) {
@@ -147,31 +149,34 @@ public class E2E extends JFrame {
 
                     if (collectorDestination == null || collectorDestination.length() < 1) {
                         return;
-                    }                    
-                    
-                    
-                    if(collectorDestination.contains("<")){
+                    }
+
+
+                    if (collectorDestination.contains("<")) {
                         collectorDestination = collectorDestination.replace("<", "");
                         collectorDestination = collectorDestination.replace(">", "");
+                    } else {
+                        al = (ArrayList<Collectors>) new DAO().find(Collectors.class, collectorDestination, "host");
+                        collectorDestination = al.get(0).getIp();                        
                     }
                     
                     sp1.setE2E(collectorDestination);
                     sp1.setView("End to End");
-                    sp1.setCollector(collectorSource);                    
-                    
+                    sp1.setCollector(collectorSource);
+
                     barChartHorizontalPanel = new BarChartHorizontalPanel(sp1);
                     barChartHorizontalPanel.showFooter(false);
                     barChartHorizontalPanel.showPagination(false);
                     barChartHorizontalPanel.setTitleChart(collectorSource + " -> " + collectorDestination);
                     barChartHorizontalPanel.execute();
-                    barChartHorizontalPanel.setName(collectorSource + " -> " + collectorDestination);                                        
-                    
-                    jTabbedPaneCharts.add(barChartHorizontalPanel);                    
-                    
+                    barChartHorizontalPanel.setName(collectorSource + " -> " + collectorDestination);
+
+                    jTabbedPaneCharts.add(barChartHorizontalPanel);
+
                     tabTitle = JTabPaneUtilities.getTabTitle(collectorSource + " -> " + collectorDestination, getCloseButton(barChartHorizontalPanel.getName()));
                     //jTabbedPaneCharts.setTabComponentAt(jTabbedPaneCharts.getTabCount() - 1, tabTitle);
-                    jTabbedPaneCharts.setSelectedIndex(jTabbedPaneCharts.getTabCount() -1);
-                    
+                    jTabbedPaneCharts.setSelectedIndex(jTabbedPaneCharts.getTabCount() - 1);
+
                 } catch (Exception e) {
                     notifications.error("error requesting data", e);
                 } finally {
@@ -181,7 +186,6 @@ public class E2E extends JFrame {
             }
         }).start();
     } // end execute   
-  
 
     //==========================================================================
     public Component getComponent(String name) {
@@ -217,8 +221,7 @@ public class E2E extends JFrame {
 
         return component;
     } // end getComponent
-    
-    
+
     //==========================================================================    
     public void closeTab(final String tabName) {
 
@@ -247,7 +250,7 @@ public class E2E extends JFrame {
         }
 
     } // end closeTab
-    
+
     //==========================================================================
     public JButton getCloseButton(final String nameComponent) {
         JButton button = null;
@@ -258,7 +261,7 @@ public class E2E extends JFrame {
             button.setPreferredSize(new Dimension(10, 10));
             button.setToolTipText("close this tab");
             button.setBackground(Color.red);
-            
+
             button.addActionListener(new ActionListener() {
 
                 @Override
@@ -282,7 +285,7 @@ public class E2E extends JFrame {
         return button;
 
     } // end closeButton    
-    
+
     //==========================================================================
     /**
      * This method is called from within the constructor to initialize the form.

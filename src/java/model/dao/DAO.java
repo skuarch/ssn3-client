@@ -143,7 +143,7 @@ public class DAO {
         try {
 
             criteria = session.createCriteria(clazz);
-            criteria.add(Restrictions.like("%" + field + "%", stringToFind));
+            criteria.add(Restrictions.like(field, stringToFind +"%"));
             objects = criteria.list();
 
         } catch (Exception e) {

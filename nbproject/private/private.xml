@@ -8,8 +8,7 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
         <file>file:/home/skuarch/NetBeansProjects/ssn3-client/src/java/view/frames/E2E.java</file>
-        <file>file:/home/skuarch/NetBeansProjects/ssn3-client/src/java/view/panels/BarChartHorizontalPanel.java</file>
-        <file>file:/home/skuarch/NetBeansProjects/ssn3-client/src/java/view/panels/Footer.java</file>
-        <file>file:/home/skuarch/NetBeansProjects/ssn3-client/src/java/view/panels/EndtoEnd.java</file>
+        <file>file:/home/skuarch/NetBeansProjects/ssn3-client/src/java/model/beans/Collectors.java</file>
+        <file>file:/home/skuarch/NetBeansProjects/ssn3-client/src/java/model/dao/DAO.java</file>
     </open-files>
 </project-private>

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.8.3
-Created-By: 1.7.0_04-b20 (Oracle Corporation)
+Created-By: 1.6.0_32-b05 (Sun Microsystems Inc.)
 X-COMMENT: Main-Class will be added automatically by build
 Class-Path: antlr-2.7.6.jar lib/antlr-2.7.6.jar commons-collections-3.
  1.jar lib/commons-collections-3.1.jar hibernate-jpa-2.0-api-1.0.1.Fin

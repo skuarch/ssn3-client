@@ -1,5 +1,6 @@
 package model.util;
 
+import javax.jms.MessageProducer;
 import javax.jms.TopicConnection;
 import javax.jms.TopicSession;
 import javax.jms.TopicSubscriber;
@@ -61,5 +62,20 @@ public class JMSUtilities {
         }
 
     } // end closeTopicSubscriber
+    
+    //==========================================================================
+    public static void closeMessageProducer(MessageProducer messageProducer){
+        try {
+            
+            if(messageProducer != null){
+                messageProducer.close();                
+            }
+            
+        } catch (Exception e) {
+            new Notifications().error("error closing messageProducer", e);
+        }finally{
+            messageProducer = null;
+        }
+    }
 } // end class
 

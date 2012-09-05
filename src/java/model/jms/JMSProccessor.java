@@ -26,7 +26,7 @@ public class JMSProccessor extends JMS {
     } // end JMSProcessor
 
     //==========================================================================    
-    public void send(String select, String sendTo, String tagTo, String type, String key, Object object) throws Exception {
+    private void send(String select, String sendTo, String tagTo, String type, String key, Object object) throws Exception {
 
         if (select == null || select.length() < 1) {
             throw new NullPointerException("select is null or empty");
